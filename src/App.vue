@@ -1,9 +1,8 @@
 <template>
   <div id="app">
-    <div id="nav">
       <router-link to="/"></router-link> 
-    </div>
-    <router-view/>
+      <router-link to="/system"></router-link>
+    <router-view class="default" />
   </div>
 </template>
 
@@ -11,7 +10,7 @@
 html,body {
   width: 100%;
   height: 100%;
-  background-color: #ddd;
+  background-color: #eee;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -19,6 +18,9 @@ html,body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  width: 100%;
+  height: 100%;
+
 }
 
 #nav {
@@ -33,4 +35,6 @@ html,body {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+
 </style>

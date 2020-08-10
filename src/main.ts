@@ -7,9 +7,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import axios, { AxiosResponse } from 'axios';
 
 axios.interceptors.request.use(function (config): any {
-
-  // config.data.time = Date.now()
-  // config.headers['X-Requested-With'] = 'XMLHttpRequest'
+  
   config = Object.assign(config, {
     params: {
       cb: new Date().getTime()
