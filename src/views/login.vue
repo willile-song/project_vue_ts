@@ -9,7 +9,8 @@
   </div>
 </template>
 <script>
-import axios from "axios";
+import axios from "../../interceptor";
+console.log(axios)
 
 export default {
   data() {
