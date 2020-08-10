@@ -7,6 +7,8 @@
     </div>
 </template>
 <script>
+import axios from 'axios'
+
 export default {
     data() {
         return {
@@ -20,12 +22,23 @@ export default {
                 alert("请输入用户名")
             }else if(!this.password) {
                 alert("请输入密码")
-            }else if(this.username == '10000000001' && this.password == 'Qiyuesuo#2020') {
-                console.log(111)
-            }else{
-                alert("用户名密码错误！")
-                this.$route.push('/system')
             }
+            // axios({
+            //     url:'http://app11.qiyuesuo.net/login',
+            //     methods:'post',
+            //     data: {
+            //         username:'10000000001',
+            //         password:'{cipher}qgDS6XetVCvFxYEtDdx8OlJyjRScQ1EgL6sYUXALYUJenEyyWEhCTimIs/ClfyNw+Jw/uXrqK8ImjeFfZoUQMzVBFkCo7Y4eg6fwmOUHSA+HkFKsoI+oMnKkPu5eUZS9LE3aZcMkDa4qwvMbrCIhE5OHS2ImlrI2Y3nvrXR7zBs='
+            //     }
+            // }).then(res=> {
+            //     console.log(res.data)
+            // })
+            const formData = new FormData();
+            formData.append('username', '10000000001');
+            formData.append('password', '{cipher}qgDS6XetVCvFxYEtDdx8OlJyjRScQ1EgL6sYUXALYUJenEyyWEhCTimIs/ClfyNw+Jw/uXrqK8ImjeFfZoUQMzVBFkCo7Y4eg6fwmOUHSA+HkFKsoI+oMnKkPu5eUZS9LE3aZcMkDa4qwvMbrCIhE5OHS2ImlrI2Y3nvrXR7zBs=')
+            axios.post('/login', formData ).then(({data})=>{
+                console.log(data)
+            })
             this.username = ''
             this.password = ''
         }
@@ -48,6 +61,6 @@ export default {
 }
 p{
     font-size: 24px;
-    color: blue;
+    font-weight: bolder;
 }
 </style>
