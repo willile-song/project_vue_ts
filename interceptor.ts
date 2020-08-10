@@ -9,7 +9,7 @@ instance.interceptors.request.use((config: AxiosRequestConfig): any => {
         headers: {
             'X-Requested-With': 'XMLHttpRequest'   // 区分同步请求和异步请求（ajax）
         }
-    })
+    })·
     return config
 }, err => {
     return Promise.reject(err)
