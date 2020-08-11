@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-        <i class="el-icon-s-fold" style="font-size:24px" @click="handleClickCollapse"></i>
+        <i :class="classname" style="font-size:24px" @click="handleClickCollapse"></i>
     </div>
 </template>
 
@@ -9,6 +9,11 @@ export default {
     methods: {
         handleClickCollapse() {
             this.$store.commit('changeSidebarOncollapse')
+        }
+    },
+    computed: {
+        classname() {
+            return this.$store.state.sidebarOncollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'
         }
     }
 }
