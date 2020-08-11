@@ -1,7 +1,7 @@
 <template>
   <div id="system">
     <el-container class="container-total"> 
-        <el-aside width="null" class="aside">
+        <el-aside :width="width" class="aside">
           <SideBarHeader />
           <SideBarMenu />
       </el-aside>
@@ -10,7 +10,7 @@
             <Header />
         </el-header>
         <el-main class="main">
-            {{sidebarWidth}}
+          main
         </el-main>
       </el-container>
     </el-container>
@@ -20,6 +20,7 @@
 import SideBarHeader from '../components/sidebar-header'
 import SideBarMenu from '../components/silebar-menu'
 import Header from '../components/header'
+import { mapState } from 'vuex'
 
 export default {
     components: {
@@ -28,13 +29,9 @@ export default {
         Header
     },
     computed: {
-        sidebarWidth() {
-            return this.$store.state.sidebarWidth
-        },
-        // 通过store中的collapse值改变侧边栏是否显示
-        onCollapse() {
-            
-        }
+      width() {
+        return this.$store.getters.sidebarWidth
+      }
     }
 }
 </script>
@@ -54,6 +51,7 @@ export default {
   background-color: #001330;
   color: #fff;
   width: 217px;
+  transition: .6s;
 }
 
 .header {

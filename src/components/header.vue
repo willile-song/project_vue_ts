@@ -8,7 +8,7 @@
 export default {
     methods: {
         handleClickCollapse() {
-            this.$store.state.sidebarOncollapse = !this.$store.state.sidebarOncollapse
+            this.$store.commit('changeSidebarOncollapse')
         }
     }
 }
