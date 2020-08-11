@@ -4,7 +4,7 @@
       <p>电子合同签署平台</p>
       <el-input v-model="username" placeholder="账号"></el-input>
       <el-input v-model="password" placeholder="密码" show-password></el-input>
-      <el-button @click="handleLogin">登陆</el-button>
+      <el-button @click="handleLogin" type="primary">登陆</el-button>
     </div>
   </div>
 </template>
@@ -45,7 +45,7 @@ export default {
       axios.post("/login", formData).then(({ data }) => {
         console.log(data);
         if (data.code == 0) {
-          sessionStorage.setItem('loginTaken', data.token)
+        //   localStorage.setItem('loginTaken', data.token)
           this.$router.push({
             name: "system",
           });
@@ -69,7 +69,7 @@ export default {
 #login {
   width: 378px;
   height: 375px;
-  border: 2px solid #ccc;
+  border: 2px solid #aaa;
   background-color: #fff;
   padding: 24px 48px;
   border-radius: 4px;

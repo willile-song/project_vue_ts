@@ -1,6 +1,10 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 
-const instance = axios.create({ timeout: 5000 })
+const instance = axios.create({
+    baseURL:'',
+    timeout:5000,
+    withCredentials: true
+})
 instance.interceptors.request.use((config: AxiosRequestConfig): any => {
     config = Object.assign(config, {
         params: {
@@ -9,7 +13,7 @@ instance.interceptors.request.use((config: AxiosRequestConfig): any => {
         headers: {
             'X-Requested-With': 'XMLHttpRequest'   // 区分同步请求和异步请求（ajax）
         }
-    })·
+    })
     return config
 }, err => {
     return Promise.reject(err)

@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    loginTaken:''
+    sidebarOncollapse:false,    // 侧边栏是否折叠，默认展开
+    sidebarWidth:217
   },
   mutations: {
   },
