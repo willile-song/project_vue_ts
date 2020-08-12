@@ -6,14 +6,15 @@ const instance = axios.create({
     withCredentials: true
 })
 instance.interceptors.request.use((config: AxiosRequestConfig): any => {
-    config = Object.assign(config, {
-        params: {
-            cb: Date.now()  // 添加时间戳
-        },
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest'   // 区分同步请求和异步请求（ajax）
-        }
-    })
+    config.params = {
+        ...config.params,
+        cb: Date.now()
+    }
+
+    config.headers = {
+        ...config.headers,
+        'X-Requested-With': 'XMLHttpRequest'
+    }
     return config
 }, err => {
     return Promise.reject(err)

@@ -1,17 +1,21 @@
 <template>
   <div id="system">
     <el-container class="container-total"> 
-        <el-aside :width="width" class="aside">
-          <SideBarHeader />
+        <el-aside :width="width" class="aside" style="font-size:17px">
+          <side-bar-header />
           <SideBarMenu />
       </el-aside>
-      <el-container class="container-part">
+      <el-container class="container-part" style=mainWidth>
         <el-header class="header">
-            <Header />
+            <header-main />
         </el-header>
-        <el-main class="main">
+        <!-- <el-main class="main">
           main
-        </el-main>
+        </el-main> -->
+        
+        <main-container bkgroundParam="#f7f8f8" paddingParam="12px 15px">
+            <router-view />
+        </main-container>
       </el-container>
     </el-container>
   </div>
@@ -19,18 +23,22 @@
 <script>
 import SideBarHeader from '../components/sidebar-header'
 import SideBarMenu from '../components/silebar-menu'
-import Header from '../components/header'
-import { mapState } from 'vuex'
+import HeaderMain from '../components/header'
+import MainContainer from '../components/main-container'
 
 export default {
     components: {
         SideBarHeader,
         SideBarMenu,
-        Header
+        HeaderMain,
+        MainContainer
     },
     computed: {
       width() {
         return this.$store.getters.sidebarWidth
+      },
+      mainWidth() {
+        return `width:calc(100% - ${this.$store.getters.sidebarWidth}px)`
       }
     }
 }
@@ -48,9 +56,9 @@ export default {
 }
 .aside {
   height: 100%;
-  background-color: #001330;
   color: #fff;
-  width: 217px;
+  width: 207px;
+  -webkit-user-select: none;
   transition: .6s;
 }
 

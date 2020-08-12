@@ -6,9 +6,13 @@
 
 <script>
 export default {
+    props:{
+        menuShow: Boolean
+    },
     methods: {
         handleClickCollapse() {
-            this.$store.commit('changeSidebarOncollapse')
+            // this.$store.state.sidebarOncollapse = !this.$store.state.sidebarOncollapse
+            this.$store.commit('toggleSidebarOncollapse')
         }
     },
     computed: {

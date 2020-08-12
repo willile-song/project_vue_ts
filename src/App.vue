@@ -1,11 +1,19 @@
 <template>
   <div id="app">
-    <router-link to="/"></router-link>
-    <router-link to="/system"></router-link>
-    <router-view class="default" />
+    <router-view />
   </div>
 </template>
-
+<script>
+import System from '../src/views/system.vue'
+export default {
+    components: {
+        // System
+    },
+    mounted(){
+        console.log(this.$route.meta);
+    }
+}
+</script>
 <style>
 html,
 body {
