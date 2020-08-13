@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 const instance = axios.create({
     baseURL:'',
     timeout:5000,
-    withCredentials: true
+    withCredentials: true,
 })
 instance.interceptors.request.use((config: AxiosRequestConfig): any => {
     config.params = {
@@ -21,6 +21,7 @@ instance.interceptors.request.use((config: AxiosRequestConfig): any => {
 })
 
 instance.interceptors.response.use((response: AxiosResponse): any => {
+    console.log(response)
     return response
 }, err => {
     return Promise.reject(err)

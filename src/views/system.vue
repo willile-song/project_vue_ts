@@ -24,7 +24,7 @@
 import SideBarHeader from '../components/sidebar-header'
 import SideBarMenu from '../components/silebar-menu'
 import HeaderMain from '../components/header'
-import MainContainer from '../components/main-container'
+import MainContainer from '../views/main-container'
 
 export default {
     components: {
@@ -38,7 +38,7 @@ export default {
         return this.$store.getters.sidebarWidth
       },
       mainWidth() {
-        return `width:calc(100% - ${this.$store.getters.sidebarWidth}px)`
+        return `width:calc(100% - ${this.$store.getters.sidebarWidth})`
       }
     }
 }

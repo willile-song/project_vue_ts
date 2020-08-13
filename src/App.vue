@@ -9,9 +9,9 @@ export default {
     components: {
         // System
     },
-    mounted(){
-        console.log(this.$route.meta);
-    }
+    // mounted(){
+    //     console.log(this.$route.meta);
+    // }
 }
 </script>
 <style>
@@ -47,6 +47,12 @@ body {
 .el-submenu__title:hover, .el-menu-item:hover {
     background-color: #000 !important; 
     color: #fff !important;
+}
+.el-input-organ-member > input {
+    width: 190px;
+    height: 32px;
+    padding: 0px 15px 0px 30px;
+    border-radius: 16px;
 }
 
 </style>

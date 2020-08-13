@@ -4,6 +4,7 @@ import Login from '../views/login.vue'
 import System from '../views/system.vue'
 import Home from '../components/home.vue'
 import Audit from '../views/audit.vue'
+import OrganMember from '../views/organ-member.vue'
 
 Vue.use(VueRouter)
 
@@ -35,6 +36,11 @@ const routes: Array<RouteConfig> = [
                 name:'home',
                 component: Home
             },
+            {
+                path:'/organ-member',
+                name:'organ-member',
+                component:OrganMember 
+            }
         ]
     },
     
