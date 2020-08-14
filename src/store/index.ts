@@ -112,16 +112,37 @@ export default new Vuex.Store({
                 url: "/audit",
                 icon: "el-icon-document-copy",
             },
-        ]
+        ],
+        userData: '',
+        paddingDefault: '12px 15px',
+        bgColorDefault: '#f7f8f8',
     },
     mutations: {
-        toggleSidebarOncollapse(state) {
+        toggleSidebarOncollapse(state,payload) {
             state.sidebarOncollapse = !state.sidebarOncollapse;
+        },
+        getUserData(state, payload) {
+            state.userData = payload  
+        },
+        removeUserInfo(state,payload) {
+            state.userData = ''
+        },
+        changePadding(state, payload) {
+            state.paddingDefault = payload.padding
+        },
+        changeBgColor(state, payload) {
+            state.bgColorDefault = payload.bgColor
         }
     },
     getters: {
         sidebarWidth(state) {
             return state.sidebarOncollapse ? '0px' : state.normalWidth
+        },
+        getPadding(state) {
+            return state.paddingDefault
+        },
+        getBgColor(state) {
+            return state.bgColorDefault
         }
     },
     actions: {

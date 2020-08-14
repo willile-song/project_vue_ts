@@ -55,4 +55,31 @@ body {
     border-radius: 16px;
 }
 
+/* table页的导航 */
+.el-tabs__nav.is-left {
+    padding-right: 36px;
+    padding-top: 30px;
+}
+.el-tabs__nav.is-left div[role="tab"] {
+    text-align: left;
+}
+
+ul.el-menu[role="menubar"] {
+    height: 100%;
+}
+
+/* 搜索框尺寸 */
+.match .el-input .el-input__inner {
+    width: 148px;
+    height: 38px;
+}
+
+.el-select.el-select {
+    width: 130px !important;
+}
+span.title {
+    margin-right: 50px;
+}
+
+
 </style>

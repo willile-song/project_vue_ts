@@ -13,7 +13,8 @@
           main
         </el-main> -->
         
-        <main-container bkgroundParam="#f7f8f8" paddingParam="12px 15px">
+        <main-container :bkgroundParam=this.$store.getters.getBgColor
+         :paddingParam=this.$store.getters.getPadding>
             <router-view />
         </main-container>
       </el-container>

@@ -1,6 +1,6 @@
 <template>
   <div id="audit">
-    <el-container>
+    <el-container class="el-container">
       <el-aside width="159px">
         <div class="tabs">
           <el-tabs
@@ -13,7 +13,7 @@
         </div>
       </el-aside>
       <el-main>
-        <common-main-wrap :auditType="auditType" :title="title" />
+        <common-main-wrap class="common-main-wrap" :auditType="auditType" :title="title" />
       </el-main>
     </el-container>
   </div>
@@ -74,12 +74,14 @@ export default {
   },
   methods: {
     handleTabClick(tab) {
-      console.log(tab.paneName);
       this.auditType = this.list[tab.paneName].auditType;
       this.title = this.list[tab.paneName].title;
       console.log(this.auditType,this.title)
     },
   },
+  updated() {
+      this.$store.commit("getUserData")
+  }
   // mounted() {
   //     console.log(this.$route.meta);
   // }
@@ -88,6 +90,12 @@ export default {
 
 
 <style scoped>
+.el-container {
+    height: 100%;
+}
+.el-aside, .common-main-wrap {
+    overflow: hidden;
+}
 #audit {
   height: 100%;
   -webkit-user-select: none;
@@ -106,5 +114,7 @@ export default {
 }
 .tabs {
   width: 160px;
+  height: 100%;
+  padding-right:30px;
 }
 </style>

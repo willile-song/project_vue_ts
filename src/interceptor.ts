@@ -6,10 +6,11 @@ const instance = axios.create({
     withCredentials: true,
 })
 instance.interceptors.request.use((config: AxiosRequestConfig): any => {
+ 
     config.params = {
         ...config.params,
         cb: Date.now()
-    }
+    }   
 
     config.headers = {
         ...config.headers,
@@ -21,7 +22,6 @@ instance.interceptors.request.use((config: AxiosRequestConfig): any => {
 })
 
 instance.interceptors.response.use((response: AxiosResponse): any => {
-    console.log(response)
     return response
 }, err => {
     return Promise.reject(err)

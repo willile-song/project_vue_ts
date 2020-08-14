@@ -46,12 +46,10 @@ export default {
                 username: "10000000001",
                 password:
                     "{cipher}qgDS6XetVCvFxYEtDdx8OlJyjRScQ1EgL6sYUXALYUJenEyyWEhCTimIs/ClfyNw+Jw/uXrqK8ImjeFfZoUQMzVBFkCo7Y4eg6fwmOUHSA+HkFKsoI+oMnKkPu5eUZS9LE3aZcMkDa4qwvMbrCIhE5OHS2ImlrI2Y3nvrXR7zBs="
-            };
-
+            }
             axios.post("/login", qs.stringify(formData)).then(({ data }) => {
-                console.log(data);
                 if (data.code == 0) {
-                    //   localStorage.setItem('loginTaken', data.token)
+                    this.getUserData()
                     this.$router.push({
                         name: "system"
                     });
@@ -59,6 +57,11 @@ export default {
             });
             this.username = "";
             this.password = "";
+        },
+        async getUserData() {
+            const userData = await axios.get('/user')
+            this.$store.commit('getUserData', userData.data.result)
+            localStorage.setItem('userInfo', JSON.stringify(userData))
         }
     }
 };

@@ -13,11 +13,12 @@ export default {
         }
     }
 }
+
 </script>
 
 <style scoped>
 #main-container {
-    height: 100%;
+    min-height: 100%;
     padding: 12px 15px;
 }
 </style>
