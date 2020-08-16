@@ -1,4 +1,5 @@
 <template>
+    <!-- 渲染菜单 -->
     <div id="sidebar-menu">
         <el-menu
             router

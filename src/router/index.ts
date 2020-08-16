@@ -10,7 +10,7 @@ Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
     {
-        path: '/login',
+        path: '/',
         name: 'login',
         // meta:{
         //     fullscreen: true
@@ -18,7 +18,7 @@ const routes: Array<RouteConfig> = [
         component: Login
     },
     {
-        path: '/',
+        path: '/home',
         name: 'system',
         redirect:'/home',
         // route level code-splitting

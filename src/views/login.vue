@@ -22,9 +22,7 @@
     </div>
 </template>
 <script>
-import axios from "../../src/interceptor";
 import qs from "qs";
-console.log(axios);
 
 export default {
     data() {
@@ -34,12 +32,11 @@ export default {
         };
     },
     methods: {
+        // 对输入进行校验
         handleLogin() {
             if (!this.username) {
-                alert("请输入用户名");
-                return;
+                return;   
             } else if (!this.password) {
-                alert("请输入密码");
                 return;
             }
             const formData = {
@@ -47,7 +44,8 @@ export default {
                 password:
                     "{cipher}qgDS6XetVCvFxYEtDdx8OlJyjRScQ1EgL6sYUXALYUJenEyyWEhCTimIs/ClfyNw+Jw/uXrqK8ImjeFfZoUQMzVBFkCo7Y4eg6fwmOUHSA+HkFKsoI+oMnKkPu5eUZS9LE3aZcMkDa4qwvMbrCIhE5OHS2ImlrI2Y3nvrXR7zBs="
             }
-            axios.post("/login", qs.stringify(formData)).then(({ data }) => {
+            
+            this.axios.post("/login", qs.stringify(formData)).then(({ data }) => {
                 if (data.code == 0) {
                     this.getUserData()
                     this.$router.push({
@@ -59,7 +57,7 @@ export default {
             this.password = "";
         },
         async getUserData() {
-            const userData = await axios.get('/user')
+            const userData = await this.axios.get('/user')
             this.$store.commit('getUserData', userData.data.result)
             localStorage.setItem('userInfo', JSON.stringify(userData))
         }
@@ -78,7 +76,6 @@ export default {
 #login {
     width: 378px;
     height: 375px;
-    border: 2px solid #aaa;
     background-color: #fff;
     padding: 24px 48px;
     border-radius: 4px;
@@ -90,4 +87,5 @@ p {
     font-size: 24px;
     font-weight: bolder;
 }
+
 </style>

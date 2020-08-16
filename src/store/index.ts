@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         sidebarOncollapse: false,    // 侧边栏是否折叠，默认展开
-        normalWidth: '207px',
+        normalWidth: '207px',        // 侧边栏展开宽度初始值
         menuList: [
             {
                 name: "首页",
@@ -118,7 +118,7 @@ export default new Vuex.Store({
         bgColorDefault: '#f7f8f8',
     },
     mutations: {
-        toggleSidebarOncollapse(state,payload) {
+        toggleSidebarOncollapse(state,payload) {   
             state.sidebarOncollapse = !state.sidebarOncollapse;
         },
         getUserData(state, payload) {
