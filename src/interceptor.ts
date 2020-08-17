@@ -33,4 +33,4 @@ instance.interceptors.response.use((response: AxiosResponse): any => {
     return Promise.reject(err)
 })
 
-export default instance
+export default instance                       // 导出实例

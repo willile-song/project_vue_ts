@@ -201,7 +201,7 @@ export default {
           this.pageTotal = res.data.result.totalCount;
         });
     },
-    getOperation() {
+    getOperation() { // 获取操作人和操作信息
       this.axios
         .get("/system/audit/operation", {
           params: this.reqParams,

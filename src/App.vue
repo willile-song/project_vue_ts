@@ -133,7 +133,7 @@ main.el-main {
 .el-button.el-button--text.el-button--mini > span:hover {
   color: #000;
 }
-div#login .el-input__inner {
+/* div#login .el-input__inner {
   border-color: transparent;
   border-bottom-color: #ccc;
 }
@@ -149,6 +149,50 @@ div#login .el-input::after {
   border: 1px solid #2489f2;
   display: block;
   position: absolute;
+} */
+div#login .el-input__inner {
+  border-color: transparent;
+  border-bottom-color: #ccc;
+  outline: none;
+  color: #c6c6c6;
 }
+.hp-row {
+    position: relative;
+    margin: 20px;
+}
+.hp-row label {
+    position: absolute;
+    top: 7px;
+    left: 6px;
+    color: #c6c6c6;
+    font-size: 16px;
+    transition: all .3s ease;
+    pointer-events: none;
+    margin-left: 10px;
+}
+.hp-row input:focus ~ label,
+.hp-row input:valid ~ label{
+    top:-14px;
+    font-size: 12px;
+    color: #2196F3;
+}
+span.bar {
+    display: block;
+    position: relative;
+}
+span.bar::before {
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 2px;
+    background-color: #2196F3;
+    transition: all .3s ease;
+}
+.hp-row input:focus ~ span.bar::before {
+    width: 100%;
+}
+#login .el-button.el-button--primary {
+    margin-left: calc(50% - 34px);
 
+}
 </style>
