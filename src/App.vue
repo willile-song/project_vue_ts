@@ -3,15 +3,8 @@
     <router-view />
   </div>
 </template>
-<script>
-import System from "../src/views/system.vue";
+<script lang="ts">
 export default {
-  components: {
-    // System
-  },
-  // mounted(){
-  //     console.log(this.$route.meta);
-  // }
 };
 </script>
 <style>
@@ -94,26 +87,7 @@ main.el-main {
 .custom-tree-node > .el-icon-more {
   margin-left: 20px;
 }
-/* .custom-tree-node .operation {
-  position: absolute;
-  padding: 10px;
-  border: 1px solid red;
-  left: 55px;
-  list-style: none;
-  background-color: #fff;
-  display: none;
-}
-.custom-tree-node .operation.is-hover {
-  position: absolute;
-  padding: 10px;
-  border: 1px solid red;
-  left: 55px;
-  list-style: none;
-  background-color: #fff;
-}
-.custom-tree-node .operation span {
-  color: #aaa;
-} */
+
 
 .el-dropdown {
   margin-left: 20px;
@@ -133,10 +107,10 @@ main.el-main {
 .el-button.el-button--text.el-button--mini > span:hover {
   color: #000;
 }
-
+/* 登录框效果 */
 div#login .el-input__inner {
   border-color: transparent;
-  border-bottom-color: #ccc;
+  border-bottom-color: #ccc ;
   outline: none;
   color: #c6c6c6;
 }
@@ -154,7 +128,7 @@ div#login .el-input__inner {
     pointer-events: none;
     margin-left: 10px;
 }
-.hp-row input:focus ~ label{
+.hp-row input:focus ~ label, .hp-row input:valid ~ label{
     top:-14px;
     font-size: 12px;
     color: #2196F3;
@@ -171,7 +145,7 @@ span.bar::before {
     background-color: #2196F3;
     transition: all .3s ease;
 }
-.hp-row input:focus ~ span.bar::before {
+.hp-row input:focus ~ span.bar::before, .hp-row input:valid ~ span.bar::before {
     width: 100%;
 }
 #login .el-button.el-button--primary {

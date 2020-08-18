@@ -26,12 +26,6 @@ export default {
     },
   },
 
-  created() {
-    this.axios('/organization/2697675620831965209').then(res => {
-      console.log(res)
-    })
-  },
-
   methods: {
     filterNode(value, data) {
       if (!value) return true;

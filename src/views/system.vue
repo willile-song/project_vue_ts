@@ -3,7 +3,7 @@
         <el-container class="container-total">
             <el-aside :width="width" class="aside" style="font-size:17px">
                 <side-bar-header />
-                <SideBarMenu />
+                <side-bar-menu />
             </el-aside>
             <el-container class="container-part" style=mainWidth>
                 <el-header class="header">
@@ -21,28 +21,31 @@
         </el-container>
     </div>
 </template>
-<script>
+<script lang="ts">
     import SideBarHeader from '../components/sidebar-header'
     import SideBarMenu from '../components/silebar-menu'
     import HeaderMain from '../components/header'
     import MainContainer from '../views/main-container'
 
-    export default {
+    import { Component, Vue } from 'vue-property-decorator'
+
+    @Component({
         components: {
             SideBarHeader,
             SideBarMenu,
             HeaderMain,
             MainContainer
-        },
-        computed: {
-            width() {
-                return this.$store.getters.sidebarWidth
-            },
-            mainWidth() {
-                return `width:calc(100% - ${this.$store.getters.sidebarWidth})`
-            }
+        }
+    })
+    export default class System extends Vue {
+        get width(): string {
+            return this.$store.getters.sidebarWidth
+        }
+        get mainWidth(): string {
+            return `width:calc(100% - ${this.$store.getters.sidebarWidth})`
         }
     }
+
 </script>
 
 <style scoped>
