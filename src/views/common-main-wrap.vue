@@ -190,6 +190,7 @@ export default {
       this.operation = this.valueOperation;
       this.keyword = this.valueKeyword;
     },
+    // 获取table数据
     getListData() {
       this.axios
         .get("/system/audit/list", {
@@ -201,7 +202,8 @@ export default {
           this.pageTotal = res.data.result.totalCount;
         });
     },
-    getOperation() { // 获取操作人和操作信息
+    // 获取操作人和操作信息
+    getOperation() { 
       this.axios
         .get("/system/audit/operation", {
           params: this.reqParams,
@@ -214,6 +216,7 @@ export default {
     },
   },
   computed: {
+    // 处理参数，并返回请求参数
     reqParams() {
       let createTimeFrom, createTimeTo;
       if (this.picter) {
@@ -239,11 +242,11 @@ export default {
 
   watch: {
     reqParams() {
-      this.getListData(); // 监听计算属性
+      this.getListData(); // 监听计算属性,当计算属性中的参数变化时重新获取数据
       this.getOperation();
     },
   },
-  created() {
+  created() { // 当组件创建后获取数据
     this.axios.get("/user").then((res) => {
       this.companyId = res.data.result.companies[0].id;
     });

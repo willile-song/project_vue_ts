@@ -73,10 +73,11 @@ export default {
     CommonMainWrap,
   },
   methods: {
+    // 处理标签点击事件，
     handleTabClick(tab) {
       this.auditType = this.list[tab.paneName].auditType;
       this.title = this.list[tab.paneName].title;
-      console.log(this.auditType,this.title)
+    //   console.log(this.auditType,this.title)
     },
   },
   updated() {

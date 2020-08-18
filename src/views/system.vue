@@ -1,77 +1,81 @@
 <template>
-  <div id="system">
-    <el-container class="container-total"> 
-        <el-aside :width="width" class="aside" style="font-size:17px">
-          <side-bar-header />
-          <SideBarMenu />
-      </el-aside>
-      <el-container class="container-part" style=mainWidth>
-        <el-header class="header">
-            <header-main />
-        </el-header>
-        <!-- <el-main class="main">
+    <div id="system">
+        <el-container class="container-total">
+            <el-aside :width="width" class="aside" style="font-size:17px">
+                <side-bar-header />
+                <SideBarMenu />
+            </el-aside>
+            <el-container class="container-part" style=mainWidth>
+                <el-header class="header">
+                    <header-main />
+                </el-header>
+                <!-- <el-main class="main">
           main
         </el-main> -->
-        
-        <main-container :bkgroundParam=this.$store.getters.getBgColor
-         :paddingParam=this.$store.getters.getPadding>
-            <router-view />
-        </main-container>
-      </el-container>
-    </el-container>
-  </div>
+                <!-- 封装的main-container组件 -->
+                <main-container :bkgroundParam=this.$store.getters.getBgColor
+                    :paddingParam=this.$store.getters.getPadding>
+                    <router-view />
+                </main-container>
+            </el-container>
+        </el-container>
+    </div>
 </template>
 <script>
-import SideBarHeader from '../components/sidebar-header'
-import SideBarMenu from '../components/silebar-menu'
-import HeaderMain from '../components/header'
-import MainContainer from '../views/main-container'
+    import SideBarHeader from '../components/sidebar-header'
+    import SideBarMenu from '../components/silebar-menu'
+    import HeaderMain from '../components/header'
+    import MainContainer from '../views/main-container'
 
-export default {
-    components: {
-        SideBarHeader,
-        SideBarMenu,
-        HeaderMain,
-        MainContainer
-    },
-    computed: {
-      width() {
-        return this.$store.getters.sidebarWidth
-      },
-      mainWidth() {
-        return `width:calc(100% - ${this.$store.getters.sidebarWidth})`
-      }
+    export default {
+        components: {
+            SideBarHeader,
+            SideBarMenu,
+            HeaderMain,
+            MainContainer
+        },
+        computed: {
+            width() {
+                return this.$store.getters.sidebarWidth
+            },
+            mainWidth() {
+                return `width:calc(100% - ${this.$store.getters.sidebarWidth})`
+            }
+        }
     }
-}
 </script>
 
 <style scoped>
-#system {
-  width: 100%;
-  height: 100%;
-}
-.container-total {
-  width: 100%;
-  height: 100%;
-  background-color: #f7f8f8;
-}
-.aside {
-  height: 100%;
-  color: #fff;
-  width: 207px;
-  -webkit-user-select: none;
-  transition: .6s;
-}
+    #system {
+        width: 100%;
+        height: 100%;
+    }
 
-.header {
-    height: 35px;
-    background-color: #fff;
-}
-.main {
-    margin: 15px;
-    background-color: #fff;
-}
-.header {
-    padding: 12px 15px;
-}
+    .container-total {
+        width: 100%;
+        height: 100%;
+        background-color: #f7f8f8;
+    }
+
+    .aside {
+        height: 100%;
+        color: #fff;
+        width: 207px;
+        -webkit-user-select: none;
+        transition: .6s;
+    }
+
+    .header {
+        height: 35px;
+        background-color: #fff;
+    }
+
+    .main {
+        margin: 15px;
+        background-color: #fff;
+    }
+
+    .header {
+        padding: 12px 15px;
+    }
 </style>

@@ -55,6 +55,7 @@ export default {
             this.username = "";
             this.password = "";
         },
+        // 获取用户数据
         async getUserData() {
             const userData = await this.axios.get("/user");
             this.$store.commit("getUserData", userData.data.result);
