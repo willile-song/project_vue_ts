@@ -6,7 +6,7 @@
           <el-tabs
             @tab-click="handleTabClick"
             tab-position="left"
-            style="height: 100%; width=159px;"
+            style="height: 100%; width:159px;"
           >
             <el-tab-pane v-for="(item, index) in list" :key="index" :label="item.title "></el-tab-pane>
           </el-tabs>
