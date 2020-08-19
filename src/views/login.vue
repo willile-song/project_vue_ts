@@ -23,16 +23,17 @@
 <script lang="ts">
     import qs from "qs";
     import { Vue, Component } from 'vue-property-decorator'
-
+    // 定义表格数据类型
     interface UserInfo {
         username: string;
         password: string;
     }
+
     @Component
     export default class Login extends Vue {
-        private username = ""
-        private password = ""
-        public handleLogin(): void {
+        username = ""
+        password = ""
+        handleLogin(): void {
             if (!this.username || !this.password) {
                 return;
             }
@@ -52,8 +53,8 @@
                 })
         }
         async getUserData(): void {
-            const userData: object = await this.axios.get('/user')
-            this.$store.commit('getUserData', userData.data.result)
+            const userData: any = await this.axios.get('/user')
+            this.$store.commit('setUserData', userData.data.result)
 
         }
     }
@@ -89,20 +90,20 @@
         width: 291px;
         height: 38px;
         border: none;
-        border-bottom: 1px solid red;
-        padding: 0 30px 0 15px;
+        border-bottom: 1px solid #ccc;
         outline: none;
     }
     .hp-row input:valid, .hp-row input:focus {
         border: none;
     }
-    input:valid ~ span.tip {
+    input ~ span.tip {
         display: none;
     }
-    input:invalid ~ span.tip {
+    input:focus:invalid ~ span.tip {
         margin-top: 5px;
         display: block;
         color: red;
         font-size: 12px;
     }
+
 </style>

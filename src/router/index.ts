@@ -12,9 +12,6 @@ const routes: Array<RouteConfig> = [
     {
         path: '/',
         name: 'login',
-        // meta:{
-        //     fullscreen: true
-        // },
         component: Login
     },
     {

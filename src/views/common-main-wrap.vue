@@ -15,7 +15,7 @@
                             :value="item.accountId"></el-option>
                     </el-select>
                 </div>
-                <div class="valueOpertion">
+                <div class="operation">
                     <span>操作：</span>
                     <el-select class="el-select" style="width:83px;" v-model="valueOperation" placeholder="请选择">
                         <el-option v-for="item in operationOptions" :key="item.operation" :label="item.description"
@@ -27,10 +27,8 @@
                     <span>搜索：</span>
                     <el-input class="inline-input" v-model="valueKeyword" placeholder="请输入内容"></el-input>
                 </div>
-                <el-row>
-                    <el-button type="primary" @click="search">搜索</el-button>
-                    <el-button plain @click="reset">重置</el-button>
-                </el-row>
+                <el-button class="btn" type="primary" @click="search">搜索</el-button>
+                <el-button class="btn" plain @click="reset">重置</el-button>
             </div>
         </div>
 
@@ -67,28 +65,31 @@
 
     @Component
     export default class CommonMainWrap extends Vue {
-        @Prop() title!: string
-        @Prop() auditType!: string
-        tableData: Array<object> = []
 
-        currentPage = 1
-        valuePicker = ''
-        valueOperation = ''
-        valueOperator = ''
-        valueKeyword = ''
+        @Prop() title!: string;
 
-        operator = ''
-        picker = ''
-        operation = ''
-        keyword = ''
+        @Prop() auditType!: string;
 
-        operationOptions: Array<object> = []
-        operatorOptions: Array<object> = []
-        companyId = ''
+        tableData: Array<any> = []
+        // 初始化 v-model绑定的值
+        currentPage = 1;
+        valuePicker = '';
+        valueOperation = '';
+        valueOperator = '';
+        valueKeyword = '';
+        // 初始化真正传入组件的值
+        operator = '';
+        picker = '';
+        operation = '';
+        keyword = '';
 
-        pageNo = 1
-        pageSize = 10
-        pageTotal = 1
+        operationOptions: Array<object> = [];
+        operatorOptions: Array<object> = [];
+        companyId = '';
+
+        pageNo = 1;
+        pageSize = 10;
+        pageTotal = 1;
         tableHeader: Array<object> = [
             {
                 prop: "createTime",
@@ -122,14 +123,15 @@
             },
         ]
         public handleSizeChange(val: number): void {
-            this.pageSize = val
-            this.getListData()
-        }
-        public handleCurrentChange(val: number) {
-            this.pageNo = val;
-            console.log(`当前页: ${val}`);
+            this.pageSize = val;
             this.getListData();
         }
+
+        public handleCurrentChange(val: number) {
+            this.pageNo = val;
+            this.getListData();
+        }
+
         // 重置按钮点击事件
         public reset(): void {
             this.picker = this.valuePicker = "";
@@ -225,18 +227,26 @@
 
     #search-module {
         width: 100%;
-        height: 113px;
+        /* height: 113px; */
         padding: 30px 0 30px 30px;
         border-bottom: 1px solid rgb(228, 231, 237);
     }
 
     .filter {
         display: flex;
-        justify-content: space-around;
+        justify-content: start;
+        flex-direction: row;
         flex-wrap: wrap;
         padding-right: 200px;
     }
 
+    .time-picker,
+    .operator,
+    .operation,
+    .match,
+    .btn {
+        margin: 5px;
+    }
     .inline-input {
         display: inline;
     }

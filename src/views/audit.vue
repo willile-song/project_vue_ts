@@ -3,8 +3,8 @@
         <el-container class="el-container">
             <el-aside width="159px">
                 <div class="tabs">
-                    <el-tabs @tab-click="handleTabClick" tab-position="left" style="height: 100%; width:159px;">
-                        <el-tab-pane v-for="(item, index) in list" :key="index" :label="item.title "></el-tab-pane>
+                    <el-tabs v-model="auditType" tab-position="left" style="height: 100%; width:159px;">
+                        <el-tab-pane v-for="(item, index) in list" :key="index" :label="item.title" :name="item.auditType"></el-tab-pane>
                     </el-tabs>
                 </div>
             </el-aside>
@@ -15,7 +15,7 @@
     </div>
 </template>
 <script lang="ts">
-    import CommonMainWrap from "../views/common-main-wrap";
+    import CommonMainWrap from "../views/common-main-wrap.vue";
     import { Component, Vue } from 'vue-property-decorator'
 
     @Component({
@@ -24,9 +24,8 @@
         }
     })
     export default class Audit extends Vue {
-        private title = ''
-        private auditType = 'ACCOUNT'
-        private list: Array<object> = [
+        auditType = 'CONTRACT'
+        list: Array<any> = [
             {
                 title: "电子签约文件",
                 auditType: "CONTRACT",
@@ -56,9 +55,9 @@
                 auditType: "ACCOUNT",
             },
         ]
-        public handleTabClick(tab: object): void {
-            this.auditType = this.list[tab.paneName].auditType
-            this.title = this.list[tab.paneName].title
+        // 通过auditType获取title
+        get title(): string {
+            return this.list.find(item => this.auditType === item.auditType).title
         }
     }
 

@@ -27,8 +27,9 @@
 </template>
 
 <script lang="ts">
-
+    
     import { Component, Vue } from 'vue-property-decorator'
+    
 
     interface ListItem {
         name: string;
@@ -36,12 +37,12 @@
         id: number;
         url: string;
         icon?: string;
-        childNode?: ListItem;
+        childNode?: ListItem[];
     }
 
     @Component
     export default class SidebarMenu extends Vue {
-        public menuList: Array<ListItem> = [
+        menuList: Array<ListItem> = [
             {
                 name: "首页",
                 pid: 1,

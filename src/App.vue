@@ -17,6 +17,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -54,7 +55,6 @@ body {
 /* table页的导航 */
 .el-tabs__nav.is-left {
   padding-right: 36px;
-  /* padding-top: 30px; */
   margin-top: 30px;
 }
 .el-tabs__nav.is-left div[role="tab"] {
@@ -89,6 +89,13 @@ main.el-main {
 }
 
 
+/* 组织树 */
+.el-dropdown-menu.el-popper li {
+    padding: 0;
+}
+.el-dropdown-menu.el-popper li .el-button {
+    width: 66px;
+}
 .el-dropdown {
   margin-left: 20px;
 }
@@ -104,7 +111,7 @@ main.el-main {
   font-size: 14px;
   background-color: #f7f8f8;
 }
-.el-button.el-button--text.el-button--mini > span:hover {
+.el-button.el-button--text.el-button--mini:hover span {
   color: #000;
 }
 /* 登录框效果 */
@@ -126,7 +133,6 @@ div#login .el-input__inner {
     font-size: 16px;
     transition: all .3s ease;
     pointer-events: none;
-    margin-left: 10px;
 }
 .hp-row input:focus ~ label, .hp-row input:valid ~ label{
     top:-14px;
@@ -146,10 +152,10 @@ span.bar::before {
     transition: all .3s ease;
 }
 .hp-row input:focus ~ span.bar::before, .hp-row input:valid ~ span.bar::before {
-    width: 100%;
+    width: 292px;
 }
 #login .el-button.el-button--primary {
-    width: 312px;
-    margin-left: 32px;
+    width: 300px;
+    margin-left: 18px;
 }
 </style>

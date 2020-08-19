@@ -22,10 +22,10 @@
     </div>
 </template>
 <script lang="ts">
-    import SideBarHeader from '../components/sidebar-header'
-    import SideBarMenu from '../components/silebar-menu'
-    import HeaderMain from '../components/header'
-    import MainContainer from '../views/main-container'
+    import SideBarHeader from '../components/sidebar-header.vue'
+    import SideBarMenu from '../components/sidebar-menu.vue'
+    import HeaderMain from '../components/header.vue'
+    import MainContainer from '../views/main-container.vue'
 
     import { Component, Vue } from 'vue-property-decorator'
 

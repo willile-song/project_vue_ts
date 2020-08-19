@@ -15,7 +15,7 @@ export default new Vuex.Store({
         toggleSidebarOncollapse(state,payload) {   
             state.sidebarOncollapse = !state.sidebarOncollapse;
         },
-        getUserData(state, payload) {
+        setUserData(state, payload) {
             state.userData = payload  
         },
         removeUserInfo(state,payload) {

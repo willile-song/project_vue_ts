@@ -43,7 +43,7 @@
                                         on-click={() => this.append(data)}
                                     >
                                         添加
-                </el-button>
+                                    </el-button>
                                 </el-dropdown-item>
                                 <el-dropdown-item>
                                     <el-button
@@ -52,7 +52,7 @@
                                         on-click={() => this.remove(node, data)}
                                     >
                                         删除
-                </el-button>
+                                    </el-button>
                                 </el-dropdown-item>
 
                             </el-dropdown-menu>
