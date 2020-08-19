@@ -54,7 +54,7 @@
 
             <div class="pagination">
                 <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                    :current-page="currentPage" :page-sizes="[5, 10, 15, 20]" :page-size="100"
+                    :current-page="currentPage" :page-sizes="[5, 10, 15, 20]" :page-size="pageSize"
                     layout="total, sizes, prev, pager, next, jumper" :total="pageTotal"></el-pagination>
             </div>
 

@@ -1,42 +1,47 @@
 <template>
     <!-- 渲染菜单 -->
     <div id="sidebar-menu">
-        <el-menu
-            router
-            :default-active="$route.path"
-            background-color="rgb(16, 28, 41) "
-            text-color="#ccc"
-            active-text-color="#fff"
-            :unique-opened="true"
-        >
-             <template v-for="(item, index) in menuList">
-                    <el-menu-item v-if="!item.childNode" :index="item.url" :key="index">
+        <el-menu router :default-active="$route.path" background-color="rgb(16, 28, 41) " text-color="#ccc"
+            active-text-color="#fff" :unique-opened="true">
+            <template v-for="(item, index) in menuList">
+                <el-menu-item v-if="!item.childNode" :index="item.url" :key="index">
+                    <i :class="item.icon"></i>
+                    <span slot="title">{{ item.name }}</span>
+                </el-menu-item>
+
+                <el-submenu :index="index + ''" v-if="item.childNode" :key="index">
+                    <template slot="title">
                         <i :class="item.icon"></i>
                         <span slot="title">{{ item.name }}</span>
-                    </el-menu-item>
-                    
-                    <el-submenu :index="index + ''" v-if="item.childNode" :key="index">
-                        <template slot="title">
-                            <i :class="item.icon"></i>
-                            <span slot="title">{{ item.name }}</span>
-                        </template>
-                        <template v-for="child in item.childNode">
-                            <el-menu-item :index="child.url" :key="child.url">
-                                <i :class="child.icon"></i>
-                                <span slot="title">{{ child.name }}</span>
-                            </el-menu-item>
-                        </template>
-                    </el-submenu>
-                </template>
+                    </template>
+                    <template v-for="child in item.childNode">
+                        <el-menu-item :index="child.url" :key="child.url">
+                            <i :class="child.icon"></i>
+                            <span slot="title">{{ child.name }}</span>
+                        </el-menu-item>
+                    </template>
+                </el-submenu>
+            </template>
         </el-menu>
     </div>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            menuList: [
+<script lang="ts">
+
+    import { Component, Vue } from 'vue-property-decorator'
+
+    interface ListItem {
+        name: string;
+        pid: number;
+        id: number;
+        url: string;
+        icon?: string;
+        childNode?: ListItem;
+    }
+
+    @Component
+    export default class SidebarMenu extends Vue {
+        public menuList: Array<ListItem> = [
             {
                 name: "首页",
                 pid: 1,
@@ -141,15 +146,14 @@ export default {
                 url: "/audit",
                 icon: "el-icon-document-copy",
             },
-        ],
-        }
-    },
-};
+        ]
+    }
+
 </script>
 
 <style scoped>
-#sidebar-menu {
-    background-color: #001330;
-    height: calc(100% - 80px);
-}
+    #sidebar-menu {
+        background-color: #001330;
+        height: calc(100% - 80px);
+    }
 </style>
