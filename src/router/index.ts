@@ -2,51 +2,76 @@ import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Login from '../views/login.vue'
 import System from '../views/system.vue'
-import Home from '../components/home.vue'
+import Home from '../views/home.vue'
 import Audit from '../views/audit.vue'
 import OrganMember from '../views/organ-member.vue'
 
 Vue.use(VueRouter)
 
-const routes: Array<RouteConfig> = [
+interface RouteData {
+    path: string;
+    name: string;
+    redirect?: string;
+    component: any;
+    children?: RouteData[];
+}
+// 后台路由数据
+const routesList: Array<RouteData> = [
+    
+    {
+        path: '/system',
+        name: 'system',
+        redirect: '/home',
+        component: '',
+        children: [
+            {
+                path: '/audit',
+                name: 'audit',
+                component: '',
+            },
+            {
+                path: '/home',
+                name: 'home',
+                component: '',
+            },
+            {
+                path: '/organ-member',
+                name: 'organ-member',
+                component: '',
+            }
+        ]
+    }
+]
+
+// 对数据进行处理
+const handleRoutes = (list: RouteData[]): RouteData[] => {
+    return list.map(item => {
+        item.component = () => import(`../views/${item.name}.vue`)
+        if(item.children && item.children.length) {
+            item.children = handleRoutes(item.children);
+        }
+        return item
+    })
+    
+}
+
+const _routes = handleRoutes(routesList)
+
+const routes: Array<RouteData> = [
     {
         path: '/',
         name: 'login',
-        component: Login
+        component: Login,
     },
+    ..._routes,
     {
-        path: '/home',
-        name: 'system',
-        redirect:'/home',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: System,
-        children: [
-            {
-                path:'/audit',
-                name: 'audit',
-                component: Audit,
-            },
-            {
-                path:'/home',
-                name:'home',
-                component: Home
-            },
-            {
-                path:'/organ-member',
-                name:'organ-member',
-                component:OrganMember 
-            }
-        ]
-    },
-    {
-        path: "*",
+        path: '*',
         name: 'notFound',
-        component: () => import('../views/notFound.vue'),
-    },
-
+        component: () => import('../views/notFound.vue')
+    }
 ]
+
+
 
 const router = new VueRouter({
     mode: 'history',

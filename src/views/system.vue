@@ -6,17 +6,16 @@
                 <side-bar-menu />
             </el-aside>
             <el-container class="container-part" style=mainWidth>
+                
                 <el-header class="header">
                     <header-main />
                 </el-header>
-                <!-- <el-main class="main">
-          main
-        </el-main> -->
                 <!-- 封装的main-container组件 -->
-                <main-container :bkgroundParam=this.$store.getters.getBgColor
-                    :paddingParam=this.$store.getters.getPadding>
+                <main-container :bkgroundParam="this.$store.state.bgColorDefault"
+                    :paddingParam="this.$store.state.paddingDefault">
                     <router-view />
                 </main-container>
+
             </el-container>
         </el-container>
     </div>

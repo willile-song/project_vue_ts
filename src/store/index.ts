@@ -31,12 +31,6 @@ export default new Vuex.Store({
     getters: {
         sidebarWidth(state) {
             return state.sidebarOncollapse ? '0px' : state.normalWidth
-        },
-        getPadding(state) {
-            return state.paddingDefault
-        },
-        getBgColor(state) {
-            return state.bgColorDefault
         }
     },
     actions: {

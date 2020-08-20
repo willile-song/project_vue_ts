@@ -41,10 +41,10 @@
                 username: '10000000001',
                 password: '{cipher}qgDS6XetVCvFxYEtDdx8OlJyjRScQ1EgL6sYUXALYUJenEyyWEhCTimIs/ClfyNw+Jw/uXrqK8ImjeFfZoUQMzVBFkCo7Y4eg6fwmOUHSA+HkFKsoI+oMnKkPu5eUZS9LE3aZcMkDa4qwvMbrCIhE5OHS2ImlrI2Y3nvrXR7zBs='
             }
-            this.axios
+            Vue.prototype.axios
                 .post('/login', qs.stringify(fromData))
-                .then(({ data }) => {
-                    if (data.code == 0) {
+                .then((res: any) => {
+                    if (res.data.code == 0) {
                         this.getUserData()
                         this.$router.push({
                             name: 'system'
@@ -52,10 +52,9 @@
                     }
                 })
         }
-        async getUserData(): void {
-            const userData: any = await this.axios.get('/user')
+        async getUserData() {
+            const userData: any = await Vue.prototype.axios.get('/user')
             this.$store.commit('setUserData', userData.data.result)
-
         }
     }
 

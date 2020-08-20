@@ -83,14 +83,14 @@
         operation = '';
         keyword = '';
 
-        operationOptions: Array<object> = [];
-        operatorOptions: Array<object> = [];
+        operationOptions: Array<any> = [];
+        operatorOptions: Array<any> = [];
         companyId = '';
 
         pageNo = 1;
         pageSize = 10;
         pageTotal = 1;
-        tableHeader: Array<object> = [
+        tableHeader: Array<any> = [
             {
                 prop: "createTime",
                 label: "时间",
@@ -148,11 +148,11 @@
         }
         // 获取table数据
         public getListData(): void {
-            this.axios
+            Vue.prototype.axios
                 .get("/system/audit/list", {
                     params: this.reqParams,
                 })
-                .then((res) => {
+                .then((res: any) => {
                     //   console.log(res.data.result.result);
                     this.tableData = res.data.result.result;
                     this.pageTotal = res.data.result.totalCount;
@@ -160,7 +160,7 @@
         }
         // 获取操作人和操作信息
         public getOperation(): void {
-            this.axios
+            Vue.prototype.axios
                 .get("/system/audit/operation", {
                     params: this.reqParams,
                 })
@@ -170,9 +170,9 @@
                     this.operationOptions = operations;
                 });
         }
-        get reqParams(): void {
-            let createTimeFrom!: Date
-            let createTimeTo!: Date
+        get reqParams(): any {
+            let createTimeFrom!: string
+            let createTimeTo!: string
             if (this.picker) {
                 createTimeFrom = this.picker[0];
                 createTimeTo = this.picker[1];
@@ -194,7 +194,7 @@
         }
         // 组件创建后初始化数据
         public created(): void {
-            this.axios.get("/user").then((res: any) => {
+            Vue.prototype.axios.get("/user").then((res: any) => {
                 this.companyId = res.data.result.companies[0].id;
             });
             this.getListData();
