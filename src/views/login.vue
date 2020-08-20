@@ -53,8 +53,8 @@
                 })
         }
         async getUserData() {
-            const userData: any = await Vue.prototype.axios.get('/user')
-            this.$store.commit('setUserData', userData.data.result)
+            const userData: any = await Vue.prototype.axios.get('/user');
+            this.$store.commit('setUserData', userData.data.result);
         }
     }
 

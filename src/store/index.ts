@@ -16,21 +16,21 @@ export default new Vuex.Store({
             state.sidebarOncollapse = !state.sidebarOncollapse;
         },
         setUserData(state, payload) {
-            state.userData = payload  
+            state.userData = payload;  
         },
         removeUserInfo(state,payload) {
-            state.userData = ''
+            state.userData = '';
         },
         changePadding(state, payload) {
-            state.paddingDefault = payload.padding
+            state.paddingDefault = payload.padding;
         },
         changeBgColor(state, payload) {
-            state.bgColorDefault = payload.bgColor
+            state.bgColorDefault = payload.bgColor;
         }
     },
     getters: {
         sidebarWidth(state) {
-            return state.sidebarOncollapse ? '0px' : state.normalWidth
+            return state.sidebarOncollapse ? '0px' : state.normalWidth;
         }
     },
     actions: {
