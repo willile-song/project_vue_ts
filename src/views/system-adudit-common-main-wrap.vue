@@ -119,11 +119,11 @@ export default class CommonMainWrap extends Vue {
     @Prop() auditType!: string;
     // 表数据
     tableData: Array<any> = [];
-
+    // 操作人搜索框数据
     operatorOptions: Array<any> = [];
-
+    // 操作搜索框数据
     operationOptions: Array<any> = [];
-
+    // 表头数据
     tableHeader: Array<any> = [
         {
             prop: "createTime",
@@ -157,6 +157,9 @@ export default class CommonMainWrap extends Vue {
         }
     ];
 
+    // 公司id
+    companyId!: string;
+
     // 初始化搜索框数据
     searchParams = new InitParams();
     // 初始化page相关数据
@@ -164,13 +167,12 @@ export default class CommonMainWrap extends Vue {
 
     //计算属性中的数据
     get comptuedParams(): any {
-       return {
-        //    ...this.pageParams,
-           auditType:this.auditType,
-       }
+        return {
+            auditType: this.auditType
+        };
     }
     // 监听计算属性
-    @Watch('comptuedParams')
+    @Watch("comptuedParams")
     comptuedParamsChanged(): void {
         this.getListData();
         this.getOperation();
@@ -185,33 +187,33 @@ export default class CommonMainWrap extends Vue {
         this.pageParams.pageNo = val;
         this.getListData();
     }
+    // 获取数据
     getListData(): void {
-        Vue.prototype.axios
+        this.axios
             .get("/system/audit/list", {
                 params: {
                     ...this.comptuedParams,
                     ...this.pageParams,
-                    companyId: '2703493711465512985',
+                    companyId: "2703493711465512985",
                     createTimeFrom: this.searchParams.picker[0],
                     createTimeTo: this.searchParams.picker[1],
                     operation: this.searchParams.operation,
                     operator: this.searchParams.operator,
-                    keyword: this.searchParams.keyword,
+                    keyword: this.searchParams.keyword
                 }
-                
             })
             .then((res: any) => {
-                console.log(res);
                 this.tableData = res.data.result.result;
                 this.pageParams.pageTotal = res.data.result.totalCount;
             });
     }
-     getOperation(): void {
-        Vue.prototype.axios
+    getOperation(): void {
+        console.log(JSON.parse(this.$store.state.userData))
+        this.axios
             .get("/system/audit/operation", {
                 params: {
                     auditType: this.auditType,
-                    companyId: '2703493711465512985',
+                    companyId: "2703493711465512985"
                 }
             })
             .then((res: any) => {
@@ -220,20 +222,27 @@ export default class CommonMainWrap extends Vue {
                 this.operationOptions = operations;
             });
     }
+
+    // 搜索按钮事件
     search(): void {
         this.getListData();
     }
+
+    // 重置搜索框，表单同步变化
     reset(): void {
         this.searchParams = new InitParams();
         this.getListData();
     }
-    created(): void {
-        this.getListData();
+
+    async mounted() {
         this.getOperation();
+        this.getListData();
     }
+
+  
 }
 </script>
-<style scoped>
+<style  scoped>
 .common-main-wrap {
     overflow-x: hidden;
 }
@@ -251,7 +260,6 @@ export default class CommonMainWrap extends Vue {
 
 #search-module {
     width: 100%;
-    /* height: 113px; */
     padding: 30px 0 30px 30px;
     border-bottom: 1px solid rgb(228, 231, 237);
 }

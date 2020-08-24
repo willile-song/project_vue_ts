@@ -4,7 +4,7 @@
         <el-menu router :default-active="$route.path" background-color="rgb(16, 28, 41) " text-color="#ccc"
             active-text-color="#fff" :unique-opened="true">
             <template v-for="(item, index) in menuList">
-                <el-menu-item v-if="!item.childNode" :index="item.url" :key="index">
+                <el-menu-item v-if="!item.childNode" :index="item.url" :key="index" :route="item.url">
                     <i :class="item.icon"></i>
                     <span slot="title">{{ item.name }}</span>
                 </el-menu-item>
@@ -15,7 +15,7 @@
                         <span slot="title">{{ item.name }}</span>
                     </template>
                     <template v-for="child in item.childNode">
-                        <el-menu-item :index="child.url" :key="child.url">
+                        <el-menu-item :index="child.url" :key="child.url ">
                             <i :class="child.icon"></i>
                             <span slot="title">{{ child.name }}</span>
                         </el-menu-item>

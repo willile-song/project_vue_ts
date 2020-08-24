@@ -10,23 +10,26 @@
                 </div>
             </el-aside>
             <el-main>
-                <common-main-wrap class="common-main-wrap" :auditType="auditType" :title="title" />
+                <system-adudit-common-main-wrap class="common-main-wrap" :auditType="auditType" :title="title" />
             </el-main>
         </el-container>
     </div>
 </template>
 <script lang="ts">
-    import CommonMainWrap from "../views/common-main-wrap.vue";
+    import SystemAduditCommonMainWrap from "../views/system-adudit-common-main-wrap.vue";
     import { Component, Vue } from 'vue-property-decorator'
 
     @Component({
         components: {
-            CommonMainWrap
+            SystemAduditCommonMainWrap
         }
     })
     export default class Audit extends Vue {
         auditType = 'CONTRACT'
-        list: Array<any> = [
+
+        status = false;
+
+        list = [
             {
                 title: "电子签约文件",
                 auditType: "CONTRACT",
@@ -57,8 +60,8 @@
             },
         ]
         // 通过auditType获取title
-        get title(): string {
-            return this.list.find(item => this.auditType === item.auditType).title
+        get title() {
+            return this.list.find(item => this.auditType === item.auditType)?.title;
         }
     }
 
@@ -70,13 +73,13 @@
         height: 100%;
     }
 
-    .el-aside,
+    /* .el-aside,
     .common-main-wrap {
         overflow: hidden;
-    }
+    } */
 
     #audit {
-        height: 100%;
+        height: calc(100% - 60px);
         -webkit-user-select: none;
     }
 

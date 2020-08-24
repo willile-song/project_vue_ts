@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
-import router from '../src/router/index'
+import router from '@/router/'
 
 // 创建axios实例
 const instance = axios.create({

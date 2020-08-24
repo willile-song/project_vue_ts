@@ -12,14 +12,11 @@ export default new Vuex.Store({
         bgColorDefault: '#f7f8f8',
     },
     mutations: {
-        toggleSidebarOncollapse(state,payload) {   
+        toggleSidebarOncollapse(state, payload) {
             state.sidebarOncollapse = !state.sidebarOncollapse;
         },
         setUserData(state, payload) {
-            state.userData = payload;  
-        },
-        removeUserInfo(state,payload) {
-            state.userData = '';
+            state.userData = payload;
         },
         changePadding(state, payload) {
             state.paddingDefault = payload.padding;
