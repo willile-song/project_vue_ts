@@ -10,18 +10,18 @@
                 </div>
             </el-aside>
             <el-main>
-                <system-adudit-common-main-wrap class="common-main-wrap" :auditType="auditType" :title="title" />
+                <common-main-wrap class="common-main-wrap" :auditType="auditType" :title="title" />
             </el-main>
         </el-container>
     </div>
 </template>
 <script lang="ts">
-    import SystemAduditCommonMainWrap from "../views/system-adudit-common-main-wrap.vue";
+    import CommonMainWrap from "@/components/common-main-wrap.vue";
     import { Component, Vue } from 'vue-property-decorator'
 
     @Component({
         components: {
-            SystemAduditCommonMainWrap
+            CommonMainWrap
         }
     })
     export default class Audit extends Vue {

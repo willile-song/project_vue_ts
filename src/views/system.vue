@@ -21,12 +21,11 @@
     </div>
 </template>
 <script lang="ts">
-import SideBarHeader from "../components/sidebar-header.vue";
-import SideBarMenu from "../components/sidebar-menu.vue";
-import HeaderMain from "../components/header.vue";
-import MainContainer from "../views/main-container.vue";
-
-import { Component, Vue } from "vue-property-decorator";
+import SideBarHeader from '../components/sidebar-header.vue';
+import SideBarMenu from '../components/sidebar-menu.vue';
+import HeaderMain from '../components/header-main.vue';
+import MainContainer from '../components/main-container.vue';
+import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
     components: {
@@ -46,37 +45,29 @@ export default class System extends Vue {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 #system {
     width: 100%;
-    height:100%;
-}
-
-.container-total {
-    width: 100%;
     height: 100%;
-    background-color: #f7f8f8;
-}
 
-.aside {
-    height: 100%;
-    color: #fff;
-    width: 207px;
-    -webkit-user-select: none;
-    transition: 0.6s;
-}
+    .container-total {
+        width: 100%;
+        height: 100%;
+        background-color: #f7f8f8;
 
-.header {
-    height: 35px;
-    background-color: #fff;
-}
+        .aside {
+            height: 100%;
+            color: #fff;
+            width: 207px;
+            -webkit-user-select: none;
+            transition: 0.6s;
+        }
 
-.main {
-    margin: 15px;
-    background-color: #fff;
-}
-
-.header {
-    padding: 12px 15px;
+        .header {
+            height: 35px;
+            background-color: #fff;
+            padding: 12px 15px;
+        }
+    }
 }
 </style>

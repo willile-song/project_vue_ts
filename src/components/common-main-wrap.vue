@@ -60,7 +60,7 @@
         </div>
 
         <!-- // 表格部分 -->
-        <div>
+        <div class="table">
             <el-table :data="tableData" style="width: 100%">
                 <el-table-column
                     v-for="(item, index) in tableHeader"
@@ -97,13 +97,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 // 搜索框属性类
 class InitParams {
-    picker = "";
-    operation = "";
-    operator = "";
-    keyword = "";
+    picker = '';
+    operation = '';
+    operator = '';
+    keyword = '';
 }
 // 分页类
 class InitPageData {
@@ -126,34 +126,34 @@ export default class CommonMainWrap extends Vue {
     // 表头数据
     tableHeader: Array<any> = [
         {
-            prop: "createTime",
-            label: "时间",
-            width: ""
+            prop: 'createTime',
+            label: '时间',
+            width: ''
         },
         {
-            prop: "operator",
-            label: "操作人",
-            width: "200px"
+            prop: 'operator',
+            label: '操作人',
+            width: '200px'
         },
         {
-            prop: "operationDesc",
-            label: "操作",
-            width: ""
+            prop: 'operationDesc',
+            label: '操作',
+            width: ''
         },
         {
-            prop: "entityName",
-            label: "操作对象",
-            width: ""
+            prop: 'entityName',
+            label: '操作对象',
+            width: ''
         },
         {
-            prop: "sealNames",
-            label: "使用印章",
-            width: ""
+            prop: 'sealNames',
+            label: '使用印章',
+            width: ''
         },
         {
-            prop: "detailedOperation",
-            label: "详细操作数据",
-            width: "400px"
+            prop: 'detailedOperation',
+            label: '详细操作数据',
+            width: '400px'
         }
     ];
 
@@ -172,7 +172,7 @@ export default class CommonMainWrap extends Vue {
         };
     }
     // 监听计算属性
-    @Watch("comptuedParams")
+    @Watch('comptuedParams')
     comptuedParamsChanged(): void {
         this.getListData();
         this.getOperation();
@@ -190,11 +190,11 @@ export default class CommonMainWrap extends Vue {
     // 获取数据
     getListData(): void {
         this.axios
-            .get("/system/audit/list", {
+            .get('/system/audit/list', {
                 params: {
                     ...this.comptuedParams,
                     ...this.pageParams,
-                    companyId: "2703493711465512985",
+                    companyId: '2703493711465512985',
                     createTimeFrom: this.searchParams.picker[0],
                     createTimeTo: this.searchParams.picker[1],
                     operation: this.searchParams.operation,
@@ -208,12 +208,12 @@ export default class CommonMainWrap extends Vue {
             });
     }
     getOperation(): void {
-        console.log(JSON.parse(this.$store.state.userData))
+        console.log(JSON.parse(this.$store.state.userData));
         this.axios
-            .get("/system/audit/operation", {
+            .get('/system/audit/operation', {
                 params: {
                     auditType: this.auditType,
-                    companyId: "2703493711465512985"
+                    companyId: '2703493711465512985'
                 }
             })
             .then((res: any) => {
@@ -238,63 +238,59 @@ export default class CommonMainWrap extends Vue {
         this.getOperation();
         this.getListData();
     }
-
-  
 }
 </script>
-<style  scoped>
+<style lang="less"  scoped>
 .common-main-wrap {
     overflow-x: hidden;
-}
 
-.table-list {
-    margin: 0px 30px 0 30px;
-    text-align: left;
-}
+    #search-module {
+        width: 100%;
+        padding: 30px 0 30px 30px;
+        border-bottom: 1px solid rgb(228, 231, 237);
 
-.pagination {
-    padding: 20px 24px;
-    display: flex;
-    justify-content: flex-end;
-}
+        .filter {
+            display: flex;
+            justify-content: start;
+            flex-direction: row;
+            flex-wrap: wrap;
+            padding-right: 200px;
 
-#search-module {
-    width: 100%;
-    padding: 30px 0 30px 30px;
-    border-bottom: 1px solid rgb(228, 231, 237);
-}
+            .time-picker,
+            .operator,
+            .operation,
+            .match,
+            .btn {
+                margin: 5px;
+            }
+            .match {
+                .inline-input {
+                    display: inline;
+                }
+            }
+        }
+    }
 
-.filter {
-    display: flex;
-    justify-content: start;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding-right: 200px;
-}
+    .table {
+        .pagination {
+            padding: 20px 24px;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .demo-table-expand {
+            font-size: 0;
 
-.time-picker,
-.operator,
-.operation,
-.match,
-.btn {
-    margin: 5px;
-}
-.inline-input {
-    display: inline;
-}
+            label {
+                width: 90px;
+                color: #99a9bf;
+            }
 
-.demo-table-expand {
-    font-size: 0;
-}
-
-.demo-table-expand label {
-    width: 90px;
-    color: #99a9bf;
-}
-
-.demo-table-expand .el-form-item {
-    margin-right: 0;
-    margin-bottom: 0;
-    width: 50%;
+            .el-form-item {
+                margin-right: 0;
+                margin-bottom: 0;
+                width: 50%;
+            }
+        }
+    }
 }
 </style>
