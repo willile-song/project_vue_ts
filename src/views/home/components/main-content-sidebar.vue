@@ -14,8 +14,17 @@
             </div>
         </div>
         <div class="seal-stats">
-            <div class="stats-title"></div>
-            <echarts-component></echarts-component>
+            <div class="stats-title">
+                <div class="text">用印统计</div>
+                <div class="seal-options">
+                    <div class="electronic-label">电子用印</div>
+                    <div class="physical-label">物理用印</div>
+                </div>
+            </div>
+            <div class="echarts-wrap">
+                <echarts-component></echarts-component>
+            </div>
+            
         </div>
         <div class="operation">
             <div>
@@ -119,9 +128,7 @@ import EchartsComponent from '@/components/echarts-component.vue';
 
 export default {
     data() {
-        return {
-           
-        };
+        return {};
     },
     components: {
         EchartsComponent
@@ -186,6 +193,54 @@ export default {
         height: 266px;
         padding: 16px;
         margin-bottom: 16px;
+
+        .stats-title {
+            height: 42px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .text {
+                color: rgb(0, 19, 48);
+                font-size: 14px;
+            }
+
+            .seal-options {
+                color: #7f8997;
+                margin-bottom: 4px;
+                font-size: 12px;
+
+                div {
+                    margin-bottom: 4px;
+                    position: relative;
+                    
+                    &.electronic-label::before {
+                        background-color: #2489f3;
+                    }
+
+                    &.physical-label::before {
+                        background-color: #2bb353;
+                    }
+
+                    &::before {
+                        content: '';
+                        position: absolute;
+                        display: inline-block;
+                        width: 4px;
+                        height: 4px;
+                        border-radius: 50%;
+                        left: -12px;
+                        top: calc(50% - 2px);;
+                    }
+                }
+            }
+        }
+
+        .echarts-wrap {
+            height: calc(100% - 54px);
+            margin-bottom: 20px;
+        }
     }
     // 操作
     .operation {
@@ -331,7 +386,6 @@ export default {
             .content {
                 display: flex;
                 justify-content: space-between;
-                
 
                 div {
                     width: 104px;

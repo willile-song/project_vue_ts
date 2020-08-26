@@ -1,5 +1,5 @@
 <template>
-    <v-chart :options="polar" />
+    <v-chart :options="options" />
 </template>
 
 <style>
@@ -23,48 +23,78 @@ export default {
         'v-chart': ECharts
     },
     data() {
-        const data = [];
-
-        for (let i = 0; i <= 360; i++) {
-            const t = (i / 180) * Math.PI;
-            const r = Math.sin(2 * t) * Math.cos(2 * t);
-            data.push([r, i]);
-        }
-
         return {
-            polar: {
+            options: {
                 title: {
-                    text: '极坐标双数值轴'
-                },
-                legend: {
-                    data: ['line']
-                },
-                polar: {
-                    center: ['50%', '50%']
+                    text: '堆叠区域图'
                 },
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: {
-                        type: 'cross'
+                        type: 'cross',
+                        label: {
+                            backgroundColor: '#6a7985'
+                        }
                     }
                 },
-                angleAxis: {
-                    type: 'value',
-                    startAngle: 0
+                legend: {
+                    data: [
+                        '邮件营销',
+                        '联盟广告',
+                        '视频广告',
+                        '直接访问',
+                        '搜索引擎'
+                    ]
                 },
-                radiusAxis: {
-                    min: 0
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    }
                 },
-                series: [
+                grid: {
+                    top:'3%',
+                    left: 0,
+                    bottom: 0,
+                    containLabel: true
+                },
+                xAxis: [
                     {
-                        coordinateSystem: 'polar',
-                        name: 'line',
-                        type: 'line',
-                        showSymbol: false,
-                        data: data
+                        type: 'category',
+                        boundaryGap: false,
+                        data: [
+                            '周一',
+                            '周二',
+                            '周三',
+                            '周四',
+                            '周五',
+                            '周六',
+                            '周日'
+                        ]
                     }
                 ],
-                animationDuration: 2000
+                yAxis: [
+                    {
+                        type: 'value'
+                    }
+                ],
+                series: [
+                    {
+                        name: '邮件营销',
+                        type: 'line',
+                        stack: '总量',
+                        areaStyle: {},
+                        data: [1, 3, 4, 6, 2, 7, 8]
+                    },
+                    {
+                        name: '联盟广告',
+                        type: 'line',
+                        stack: '总量',
+                        areaStyle: {},
+                        data: [1, 2, 5, 7, 8, 0, 9]
+                    },
+                  
+                 
+                ]
             }
         };
     }
