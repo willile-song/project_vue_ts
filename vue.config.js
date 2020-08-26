@@ -3,5 +3,9 @@
 module.exports = {
     devServer: {
         proxy: 'http://app11.qiyuesuo.net'
-    }
+    },
+    transpileDependencies: [
+        'vue-echarts',
+        'resize-detector'
+      ]
 }

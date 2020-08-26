@@ -6,7 +6,7 @@
                 class="filter-tree"
                 :data="data"
                 :load="loadNode"
-                lazy    
+                lazy
                 :props="defaultProps"
                 node-key="id"
                 :expand-on-click-node="false"
@@ -44,33 +44,17 @@ export default {
                             <i class="el-icon-arrow-down el-icon-more"></i>
                         </span>
                         <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item>
-                                <el-button
-                                    size="mini"
-                                    type="text"
-                                    on-click={() => this.append(data)}
-                                >
-                                    添加
-                                </el-button>
-                            </el-dropdown-item>
-                            <el-dropdown-item>
-                                <el-button
-                                    size="mini"
-                                    type="text"
-                                    on-click={() => this.remove(node, data)}
-                                >
-                                    删除
-                                </el-button>
-                            </el-dropdown-item>
+                            <el-dropdown-item>添加</el-dropdown-item>
+                            <el-dropdown-item>删除</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
                 </span>
             );
         },
         append(data) {
-            const newChild = { id: id++, label: "test", children: [] };
+            const newChild = { id: id++, label: 'test', children: [] };
             if (!data.children) {
-                this.$set(data, "children", []);
+                this.$set(data, 'children', []);
             }
             data.children.push(newChild);
         },
@@ -80,24 +64,24 @@ export default {
             const index = children.findIndex(d => d.id === data.id);
             children.splice(index, 1);
         },
-    
+
         loadNode(node, resolve) {
             if (node.level === 0) {
-                return resolve([{ label: "维森集团" }]);
+                return resolve([{ label: '维森集团' }]);
             }
             if (node.level > 1) return resolve([]);
 
             setTimeout(() => {
                 const data = [
                     {
-                        label: "leaf",
+                        label: 'leaf',
                         leaf: true
                     },
                     {
-                        label: "zone"
+                        label: 'zone'
                     },
                     {
-                        label: "none"
+                        label: 'none'
                     }
                 ];
 
@@ -108,23 +92,23 @@ export default {
 
     data() {
         return {
-            filterText: "",
+            filterText: '',
             data: [
                 {
                     id: 1,
-                    label: "一级 1",
+                    label: '一级 1',
                     children: [
                         {
                             id: 4,
-                            label: "二级 1-1",
+                            label: '二级 1-1',
                             children: [
                                 {
                                     id: 9,
-                                    label: "三级 1-1-1"
+                                    label: '三级 1-1-1'
                                 },
                                 {
                                     id: 10,
-                                    label: "三级 1-1-2"
+                                    label: '三级 1-1-2'
                                 }
                             ]
                         }
@@ -132,9 +116,9 @@ export default {
                 }
             ],
             defaultProps: {
-                children: "children",
-                label: "label",
-                isLeaf: "leaf"
+                children: 'children',
+                label: 'label',
+                isLeaf: 'leaf'
             }
         };
     }
@@ -147,7 +131,7 @@ export default {
     background-color: #fff;
 }
 
-    .container >>> el-aside {
+.container >>> el-aside {
     height: 100%;
     border-right: 1px solid #e8e8e8;
     padding: 20px 0px 20px 20px;

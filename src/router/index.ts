@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '../views/login.vue'
 
 
 Vue.use(VueRouter)
@@ -17,7 +16,7 @@ interface RouteData {
 // 后台路由数据
 const routesList: Array<RouteData> = [
     {
-        path: '/system',
+        path: '/',
         name: 'system',
         redirect: '/home',
         component: '',
@@ -38,29 +37,24 @@ const routesList: Array<RouteData> = [
                 path: '/organ-member',
                 name: 'organ-member',
                 component: '',
-                dir:'organ-member',
+                dir: 'organ-member/',
             }
         ]
     },
 
     {
-        path: '/',
-        name: 'home-page',
-        dir: 'home/'
-    },
-    {
-        path: '/login',
-        name: 'login'
-    },
+        path: '*',
+        name: 'notFound',
+        component: () => import('../views/config/not-found.vue')
+    }
 ]
 
-// 对数据进行处理
+// 对数据进行处理 src\views\login.vue
 const handleRoutes = (list: RouteData[]): RouteData[] => {
     return list.map(item => {
         const { name, dir, children } = item;
-        const path = `../views/${dir || ''}${name}.vue`
-        console.log(path)
-        item.component = () => import(path);
+        const path = `${dir || ''}${name}.vue`
+        item.component = () => import(`@/views/${path}`);
         if (children) {
             item.children = handleRoutes(children);
         }
@@ -69,21 +63,18 @@ const handleRoutes = (list: RouteData[]): RouteData[] => {
 }
 
 const _routes = handleRoutes(routesList)
-console.log(_routes)
-
-const routes: Array<RouteData> = [
-    ..._routes,
-    {
-        path: '*',
-        name: 'notFound',
-        component: () => import('../views/config/not-found.vue')
-    }
-]
 
 const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
-    routes
+    routes: [
+        {
+            path: '/login',
+            name: 'login',
+            component: () => import('@/views/login.vue')
+        },
+        ..._routes,
+    ]
 })
 
 export default router

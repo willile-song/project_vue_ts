@@ -77,6 +77,8 @@
 
 <style lang="less" scoped>
     .header {
+        border-bottom: 2px solid red;
+
         .launch-menu {
 
         }
