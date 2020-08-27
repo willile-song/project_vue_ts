@@ -6,9 +6,11 @@
                 <side-bar-menu />
             </el-aside>
             <el-container class="container-part" style="mainWidth">
+                
                 <el-header class="header">
                     <header-main />
                 </el-header>
+
                 <!-- 封装的main-container组件 -->
                 <main-container
                     :bkgroundParam="this.$store.state.bgColorDefault"
@@ -62,12 +64,10 @@ export default class System extends Vue {
             -webkit-user-select: none;
             transition: 0.6s;
         }
+    }
 
-        .header {
-            height: 35px;
-            background-color: #fff;
-            padding: 12px 15px;
-        }
+    /deep/ .el-header {
+        padding: 0;
     }
 }
 </style>

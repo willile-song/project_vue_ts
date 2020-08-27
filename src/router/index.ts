@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import NotFound from '@/views/config/not-found.vue'
 
 
 Vue.use(VueRouter)
@@ -41,12 +42,6 @@ const routesList: Array<RouteData> = [
             }
         ]
     },
-
-    {
-        path: '*',
-        name: 'notFound',
-        component: () => import('../views/config/not-found.vue')
-    }
 ]
 
 // 对数据进行处理 src\views\login.vue
@@ -74,6 +69,11 @@ const router = new VueRouter({
             component: () => import('@/views/login.vue')
         },
         ..._routes,
+        {
+            path: '*',
+            name: 'notFound',
+            component: NotFound,
+        }
     ]
 })
 

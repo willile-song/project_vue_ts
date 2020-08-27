@@ -55,7 +55,7 @@ export default {
         background: #fff;
         display: flex;
         padding-right: 25px;
-
+        overflow: hidden;
         
         &.fold {
             width: 100%;

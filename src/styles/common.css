@@ -61,19 +61,7 @@ span.title {
     margin-left: 20px;
 }
 
-/* 组织树 */
-/* .el-dropdown-menu.el-popper li {
-    padding: 0;
-} */
-.el-dropdown-menu.el-popper li .el-button {
-    width: 66px;
-}
-.el-dropdown {
-    margin-left: 20px;
-}
-.el-dropdown-link {
-    display: none;
-}
+
 .el-tree-node__content:hover .el-dropdown-link {
     display: block;
     color: #aaa;

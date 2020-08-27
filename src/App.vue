@@ -15,7 +15,7 @@ export default {
     },
     async mounted() {
         const user = await this.axios.get("/user");
-        this.$store.commit("setUserData", JSON.stringify(user));
+        this.$store.commit("setUserData", JSON.parse(JSON.stringify(user.data.result.user)));
     }
 };
 </script>

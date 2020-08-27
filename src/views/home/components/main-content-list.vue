@@ -1,5 +1,6 @@
 <template>
     <div class="affair-list">
+        <!-- 列表头 -->
         <div class="list-header">
             <el-tabs v-model="activeName" @tab-click="handleClickLabel">
                 <el-tab-pane label="待办事务" name="affairList"></el-tab-pane>
@@ -10,7 +11,7 @@
                     <span class="seal-type">用印类型:</span>
                     <el-dropdown @command="handleCommand">
                         <span class="el-dropdown-link">
-                            全部
+                            {{dropdownLabel}}
                             <i class="el-icon-arrow-down el-icon--right"></i>
                         </span>
                         <el-dropdown-menu>
@@ -27,48 +28,145 @@
                 ></span>
             </div>
         </div>
-        <ul>
-            <li class="list-item" v-for="item in affairList" :key="item.id">
-                <div class="list-info">
-                    <div class="subject">
-                        <span class="contract-type">{{item.sealType}}</span>
-                        <span class="title">{{item.title}}</span>
-                    </div>
-                    <div class="supply-info">
-                        <span>签署方：{{item.signatory}}</span>
-                        <div class="create-time">
-                            <span>由{{item.signatory}} 于 {{item.createTime}}发起</span>
-                            <i class="el-icon-position"></i>
+
+        <!-- 占位图 -->
+        <div class="no-data" v-if="!(affairList && affairList.length)">
+            <div>
+                <img src="@/assets/imgs/no-data.ce805baeb1dabaf4.png" />
+                <p>暂时无数据！！！</p>
+            </div>
+        </div>
+
+        <!-- 列表 -->
+        <div v-else>
+            <ul>
+                <li class="list-item" v-for="item in affairList" :key="item.id">
+                    <div class="list-info">
+                        <div class="subject">
+                            <span
+                                class="contract-type"
+                                :class="item.contractType === 'PHYSICS' ? 'physics' : ''"
+                            >{{item.contractType === 'PHYSICS' ? '物理' : '电子'}}</span>
+
+                            <span class="title">{{item.subject}}</span>
+                        </div>
+                        <div class="supply-info">
+                            <span>{{item.tenantName ? '签署方：' : '申请人'}}：{{item.tenantName || item.submitorName}}</span>
+                            <div class="create-time">
+                                <span>由{{item.tenantName}} 于 {{item.createTime}}发起</span>
+                                <i class="el-icon-position"></i>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </li>
-        </ul>
+                </li>
+            </ul>
+
+            <!-- 分页 -->
+            <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page.sync="currentPage"
+                :page-size="1"
+                layout="total, prev, pager, next"
+                :total="totalPages"
+            ></el-pagination>
+        </div>
     </div>
 </template>
 
 <script>
 import list from '../mock/affair-list';
+// 初始化参数类
+class Params {
+    status = 'REQUIRED';
+    PageNo = 1;
+    pageSize = 10;
+    businessType = '';
+    asc = false; // 是否升序排列
+    fromMe = false; // 是否由我发起
+}
 
 export default {
     data() {
         return {
-            affairList: list, // 列表数据，此处为mock
+            affairList: null, // 列表数据，此处为mock
             activeName: 'affairList',
-            isAscending: true
+            isAscending: true,
+            reqParams: new Params(), // 参数实例,
+            totalPages: 10,
+            currentPage: 1,
+            dropdownLabel: '全部'
         };
     },
     methods: {
-        handleClickLabel(tab, event) {  // 切换事务
+        handleClickLabel(tab, event) {
+            // 切换事务
             // console.log(tab, event)
-            console.log(this.activeName);
+            const fromMe = this.activeName === 'launchByMe';
+            const status = fromMe ? 'TOTAL' : 'REQUIRED';
+            this.reqParams.fromMe = fromMe;
+            this.reqParams.status = status;
+            console.log(fromMe);
         },
-        handleCommand(command) {  // 下拉菜单点击事件
-            console.log(command);
+
+        // 下拉菜单点击事件
+        handleCommand(command) {
+            let businessType;
+            if (command === 'total') {
+                businessType = '';
+                this.dropdownLabel = '全部';
+            } else if (command === 'electronic-seal') {
+                businessType = 'ELECTRONIC';
+                this.dropdownLabel = '电子';
+            } else {
+                businessType = 'PHYSICS';
+                this.dropdownLabel = '物理';
+            }
+            this.reqParams.businessType = businessType;
         },
-        handleClickSortIcon() {   // 排序切换事件
+
+        handleClickSortIcon() {
+            // 排序切换事件
             this.isAscending = !this.isAscending;
+            this.reqParams.asc = this.isAscending;
+        },
+
+        // 获取列表数据
+        getList() {
+            this.axios
+                .get('/contractsealapply/page', {
+                    params: {
+                        ...this.reqParams
+                    }
+                })
+                .then(resp => {
+                    const { totalPages, result } = resp.data.result;
+                    this.affairList = result;
+                    this.totalPages = totalPages;
+                });
+        },
+
+        handleCurrentChange() {
+            this.reqParams.PageNo = this.currentPage;
+        },
+
+        handleSizeChange() {
+            console.log();
         }
+    },
+    computed: {
+        computeReqParams() {
+            return JSON.parse(JSON.stringify(this.reqParams)); // 冻结对象；
+        }
+    },
+    watch: {
+        computeReqParams() {
+            this.getList();
+            console.log('参数改变！！！');
+        }
+    },
+    mounted() {
+        this.getList();
     }
 };
 </script>
@@ -78,6 +176,7 @@ export default {
     width: 100%;
     height: 100%;
 
+    // 列表头
     .list-header {
         height: 39px;
         margin-bottom: 8px;
@@ -89,19 +188,25 @@ export default {
         /deep/ .el-tabs__nav-wrap::after {
             height: 0;
         }
+
         /deep/ .el-tabs__active-bar {
             height: 0;
         }
+
         /deep/ .el-tabs.el-tabs--top {
             padding-left: 57px;
 
             div[role='tab'] {
                 font-size: 16px;
-                color: rgba(0, 0, 0, 0.2);
+                color: #7f8997;
+                line-height: 54px;
 
                 &.is-active {
                     color: #000;
                     font-weight: 600;
+                }
+                &:hover {
+                    color: #4c596e;
                 }
             }
         }
@@ -135,6 +240,25 @@ export default {
         }
     }
 
+    // 占位图
+    .no-data {
+        margin-top: 200px;
+        width: 100%;
+
+        div {
+            img {
+                width: 260px;
+                height: 130px;
+                margin-left: calc(50% - 130px);
+            }
+
+            p {
+                text-align: center;
+            }
+        }
+    }
+
+    // 列表
     ul {
         list-style: none;
         li {
@@ -148,6 +272,7 @@ export default {
                 padding: 18px 0;
                 border-bottom: 1px solid #f2f3f4;
 
+                // 标题
                 .subject {
                     margin-bottom: 6px;
 
@@ -163,6 +288,11 @@ export default {
                         border-radius: 4px;
                         margin-right: 8px;
                         padding: 2px 8px;
+
+                        &.physics {
+                            color: #2bb353;
+                            background-color: #e5f5ea;
+                        }
                     }
 
                     .title {
@@ -198,6 +328,14 @@ export default {
                 }
             }
         }
+    }
+
+    // 分页
+    /deep/ .el-pagination {
+        display: flex;
+        justify-content: flex-end;
+        padding: 40px 5px 2px 5px;
+        background: #fff;
     }
 }
 </style>

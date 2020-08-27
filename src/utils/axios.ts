@@ -11,7 +11,9 @@ instance.interceptors.request.use((config: AxiosRequestConfig): any => {
     
     config.params = {
         ...config.params,
-        cb: Date.now()   // 为每次请求添加时间戳
+        cb:Date.now(),    // 电子签署平台的时间戳
+        _: Date.now(),   // 为每次请求添加时间戳（达梦）
+        
     }   
 
     config.headers = {
@@ -26,7 +28,7 @@ instance.interceptors.request.use((config: AxiosRequestConfig): any => {
 instance.interceptors.response.use((response: AxiosResponse): any => {
     // console.log(response.data.code)
     if(response.data.code === 403) {            // 回话失效跳转到login
-        router.push('/')
+        router.push('/login')
     }
     return response
 }, err => {

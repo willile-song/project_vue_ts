@@ -1,18 +1,24 @@
 <template>
     <div class="main-content-sidebar">
+
+        <!-- 用户部分 -->
         <div class="user">
-            <div class="portrait"></div>
+            <div class="portrait">
+                <img src="@/assets/logo.png" alt />
+            </div>
             <div class="content">
                 <div>
-                    <span class="name">奥斯卡解</span>
+                    <span class="name">{{name}}</span>
                     <i class="el-icon-s-custom"></i>
                 </div>
                 <div>
                     <span class="account-label">用户账号：</span>
-                    <span class="account">132 **** 0015</span>
+                    <span class="account">{{mobile}}</span>
                 </div>
             </div>
         </div>
+
+        <!-- 统计图 -->
         <div class="seal-stats">
             <div class="stats-title">
                 <div class="text">用印统计</div>
@@ -22,10 +28,11 @@
                 </div>
             </div>
             <div class="echarts-wrap">
-                <echarts-component></echarts-component>
+                <echarts-component :echarts="echarts"></echarts-component>
             </div>
-            
         </div>
+
+        <!-- 操作 -->
         <div class="operation">
             <div>
                 <div class="operation-title">
@@ -40,7 +47,7 @@
                     </div>
                     <div class="content">
                         <span class="tip">成员人数：</span>
-                        <span class="count">12345</span>
+                        <span class="count">{{count}}</span>
                     </div>
                 </div>
             </div>
@@ -114,7 +121,7 @@
                         <i class="el-icon-delete"></i>
                     </div>
                     <div class="content">
-                        <div class="sign-content">奥斯卡解</div>
+                        <div class="sign-content">{{name}}</div>
                         <div class="more">更多 ></div>
                     </div>
                 </div>
@@ -126,12 +133,78 @@
 <script>
 import EchartsComponent from '@/components/echarts-component.vue';
 
+
 export default {
     data() {
-        return {};
+        return {
+            name: '',
+            mobile: '',
+            echarts: {
+                dateArray:{},
+                allArray: [],
+            },    // 传入echarts的数据
+            count: 0, // 组织人数
+        };
     },
+
     components: {
         EchartsComponent
+    },
+
+    methods: {
+        //  获取echarts图表数据
+        getEchartsData() {
+            this.axios
+                .get('/data/query/chart/category', {
+                    params: {
+                        createTimeFrom: '2019-08-01',
+                        createTimeTo: '2020-08-01'
+                    }
+                })
+                .then(resp => {
+                    // console.log(resp.data.result);
+                    const result = resp.data.result;             // echarts数组对象
+                    this.echarts.options = Object.keys(result);   // 获取数据项
+
+                    // 处理数据
+                    for(let i = 0; i < this.echarts.options?.length; i++) {
+
+                        this.echarts[this.echarts.options[i]] = {
+                            date: [],
+                            all: []
+                        }
+
+                        result[this.echarts.options[i]].map(item => {
+                            // console.log(item,this.echarts.options[i])    
+                             this.echarts[this.echarts.options[i]].date.push(item.date);
+                             this.echarts[this.echarts.options[i]].all.push(item.all)
+                        })
+                    }
+                    console.log(this.echarts)
+                });
+        },
+        getEmployeeCount() {
+            this.axios.get('/employee/count', {
+                params: {
+                    orgId: 2679274771077300246
+                }
+            })
+            .then(res => {
+                this.count = res.data.result;
+            })
+        }
+    },
+
+    mounted() {
+        this.getEchartsData();
+        this.getEmployeeCount();
+        // 获取全局user数据
+        const { name, mobile } = this.$store.state.userData;
+        this.name = name;
+
+        // 截取中间四位
+        const middleNumber = mobile.slice(3, 7);
+        this.mobile = mobile.replace(middleNumber, ' **** ');
     }
 };
 </script>
@@ -166,6 +239,11 @@ export default {
             overflow: hidden;
             margin-right: 10px;
             border: @mark;
+
+            img {
+                width: 40px;
+                height: 40px;
+            }
         }
 
         .content {
@@ -175,6 +253,7 @@ export default {
             .name {
                 font-size: 14px;
                 color: #001330;
+                margin-right: 4px;
             }
 
             .account-label,
@@ -214,7 +293,7 @@ export default {
                 div {
                     margin-bottom: 4px;
                     position: relative;
-                    
+
                     &.electronic-label::before {
                         background-color: #2489f3;
                     }
@@ -231,7 +310,7 @@ export default {
                         height: 4px;
                         border-radius: 50%;
                         left: -12px;
-                        top: calc(50% - 2px);;
+                        top: calc(50% - 2px);
                     }
                 }
             }
@@ -396,6 +475,11 @@ export default {
                     line-height: 60px;
                     border: 1px solid #e5e7ea;
                     font-size: 14px;
+                }
+
+                .sign-content {
+                    font-family:cursive;
+                    font-size: 30px;
                 }
             }
         }

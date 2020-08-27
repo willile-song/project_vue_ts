@@ -19,6 +19,7 @@ import 'echarts/lib/chart/line';
 import 'echarts/lib/component/polar';
 
 export default {
+    props: ['echarts'],
     components: {
         'v-chart': ECharts
     },
@@ -26,7 +27,7 @@ export default {
         return {
             options: {
                 title: {
-                    text: '堆叠区域图'
+                    text: '用印统计表'
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -35,16 +36,10 @@ export default {
                         label: {
                             backgroundColor: '#6a7985'
                         }
-                    }
+                    },
                 },
                 legend: {
-                    data: [
-                        '邮件营销',
-                        '联盟广告',
-                        '视频广告',
-                        '直接访问',
-                        '搜索引擎'
-                    ]
+                    data: this.echarts.options,
                 },
                 toolbox: {
                     feature: {
@@ -52,7 +47,7 @@ export default {
                     }
                 },
                 grid: {
-                    top:'3%',
+                    top: '3%',
                     left: 0,
                     bottom: 0,
                     containLabel: true
@@ -61,15 +56,8 @@ export default {
                     {
                         type: 'category',
                         boundaryGap: false,
-                        data: [
-                            '周一',
-                            '周二',
-                            '周三',
-                            '周四',
-                            '周五',
-                            '周六',
-                            '周日'
-                        ]
+                        // data: this.echarts.ELECTRONIC?.date,    // 服务器问题，已经可以请求到数据，数据处理完成，这里为显示，直接使用服务器请求到的数据
+                        data: this.echarts.ELECTRONIC?.date || ["2020-03", "2020-04", "2020-05", "2020-06", "2020-07", "2020-08"],
                     }
                 ],
                 yAxis: [
@@ -79,24 +67,28 @@ export default {
                 ],
                 series: [
                     {
-                        name: '邮件营销',
+                        name: '物理用印',
                         type: 'line',
                         stack: '总量',
                         areaStyle: {},
-                        data: [1, 3, 4, 6, 2, 7, 8]
+                        data: this.echarts.PHYSICS?.all || [1, 377, 83, 49, 131, 164],
+                        // data: [12,322,543,765,867,79],
+                        color: '#2bb353'
                     },
                     {
-                        name: '联盟广告',
+                        name: '电子用印',
                         type: 'line',
                         stack: '总量',
                         areaStyle: {},
-                        data: [1, 2, 5, 7, 8, 0, 9]
-                    },
-                  
-                 
+                        data: this.echarts.ELECTRONIC?.all || [145, 1745, 4752, 2025, 4399, 1729],
+                        color: '#2489f3',  
+                    }
                 ]
             }
         };
+    },
+    mounted() {
+        console.log(this.echarts)
     }
 };
 </script>

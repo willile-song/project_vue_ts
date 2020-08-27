@@ -136,9 +136,13 @@
 
 </script>
 
-<style scoped>
+<style lang="less" scoped>
     #sidebar-menu {
         background-color: #001330;
         height: calc(100% - 80px);
+
+        /deep/ ul[role="menubar"] {
+            border: none;
+        }
     }
 </style>
