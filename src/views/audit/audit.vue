@@ -78,8 +78,12 @@ export default class Audit extends Vue {
 
 <style lang="less" scoped>
 #audit {
-    height: calc(100% - 60px);
+    height: 100%;
     -webkit-user-select: none;
+
+    .el-aside {
+        overflow-x: hidden;
+    }
 
     .el-container {
         height: 100%;

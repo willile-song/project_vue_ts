@@ -2,6 +2,7 @@
     <!-- 渲染菜单 -->
     <div id="sidebar-menu">
         <el-menu
+            @select="handleSelect"
             router
             :default-active="$route.path"
             background-color="rgb(16, 28, 41)"
@@ -20,7 +21,7 @@
                     <span slot="title">{{ item.name }}</span>
                 </el-menu-item>
 
-                <el-submenu :index="index + ''" v-if="item.childNode" :key="index">
+                <el-submenu ref="menu" :index="index + ''" v-if="item.childNode" :key="index">
                     <template slot="title">
                         <i :class="item.icon"></i>
                         <span slot="title">{{ item.name }}</span>
@@ -141,6 +142,11 @@ export default class SidebarMenu extends Vue {
             icon: 'el-icon-document-copy'
         }
     ];
+    handleSelect(index: string, indexPath: string) {
+        console.log(index, indexPath);
+        const arr = [].slice.call(this.$refs.menu);
+        console.log(typeof arr);
+    }
 }
 </script>
 
@@ -151,6 +157,7 @@ export default class SidebarMenu extends Vue {
 
     /deep/ ul[role='menubar'] {
         border: none;
+        height: 100%;
     }
 }
 </style>

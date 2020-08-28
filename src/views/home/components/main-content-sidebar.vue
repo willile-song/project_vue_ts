@@ -41,10 +41,10 @@
             </div>
 
             <div>
-                <div class="operation-item employee" @click="() => skipToRoute('/organ-member')">
+                <div v-if="employee" class="operation-item employee" @click="() => skipToRoute('/organ-member')">
                     <div class="head">
                         <span>组织与成员</span>
-                        <i class="el-icon-delete"></i>
+                        <i @click.stop="handleDelete('employee')" class="el-icon-delete"></i>
                     </div>
                     <div class="content">
                         <span class="tip">成员人数：</span>
@@ -54,10 +54,10 @@
             </div>
 
             <div>
-                <div class="operation-item seal-management" @click="() => skipToRoute('/electronic-signature')">
+                <div v-if="seal" class="operation-item seal-management" @click="() => skipToRoute('/electronic-signature')">
                     <div class="head">
                         <span>印章管理</span>
-                        <i class="el-icon-delete"></i>
+                        <i  @click.stop="handleDelete('seal')" class="el-icon-delete"></i>
                     </div>
                     <div class="content">
                         <ul>
@@ -78,10 +78,10 @@
             </div>
 
             <div>
-                <div class="operation-item power" @click="() => skipToRoute('/power-management')">
+                <div v-if="power" class="operation-item power" @click="() => skipToRoute('/power-management')">
                     <div class="head">
                         <span>权限设置</span>
-                        <i class="el-icon-delete"></i>
+                        <i  @click.stop="handleDelete('power')" class="el-icon-delete"></i>
                     </div>
                     <div class="content">
                         <div class="grey">给同事分配系统权限，可提高使用效率</div>
@@ -90,10 +90,10 @@
             </div>
 
             <div>
-                <div class="operation-item authority" @click="() => skipToRoute('/filecensus')">
+                <div v-if="file" class="operation-item authority" @click="() => skipToRoute('/filecensus')">
                     <div class="head">
                         <span>文件模板</span>
-                        <i class="el-icon-delete"></i>
+                        <i @click.stop="handleDelete('file')" class="el-icon-delete"></i>
                     </div>
                     <div class="content">
                         <ul>
@@ -118,10 +118,10 @@
             </div>
 
             <div>
-                <div class="operation-item signature">
+                <div v-if="signature" class="operation-item signature">
                     <div class="head">
                         <span>个人签名</span>
-                        <i class="el-icon-delete"></i>
+                        <i @click.stop="handleDelete('file')" class="el-icon-delete"></i>
                     </div>
                     <div class="content">
                         <div class="sign-content">{{name}}</div>
@@ -149,6 +149,12 @@ export default {
             },                                        // 传入echarts的数据
             count: 0,                                // 组织人数,
             orgId: '',                              // 组织编号
+            // 删除模块
+            employee: true,                             
+            seal: true,
+            power: true,
+            file: true, 
+            signature: true,
         };
     },
 
@@ -200,6 +206,9 @@ export default {
         },
         skipToRoute(route) {
             this.$router.push(route);
+        },
+        handleDelete(name) {
+            this[name] = false;
         }
     },
 
