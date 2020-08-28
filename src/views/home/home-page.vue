@@ -34,7 +34,7 @@ export default {
         handleClickIcon() {
             this.isFold = !this.isFold;
         },
-    }
+    },
 };
 </script>
 

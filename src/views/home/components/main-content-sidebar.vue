@@ -39,8 +39,9 @@
                     <span>常用操作</span>
                 </div>
             </div>
+
             <div>
-                <div class="operation-item employee">
+                <div class="operation-item employee" @click="() => skipToRoute('/organ-member')">
                     <div class="head">
                         <span>组织与成员</span>
                         <i class="el-icon-delete"></i>
@@ -51,8 +52,9 @@
                     </div>
                 </div>
             </div>
+
             <div>
-                <div class="operation-item seal-management">
+                <div class="operation-item seal-management" @click="() => skipToRoute('/electronic-signature')">
                     <div class="head">
                         <span>印章管理</span>
                         <i class="el-icon-delete"></i>
@@ -74,8 +76,9 @@
                     </div>
                 </div>
             </div>
+
             <div>
-                <div class="operation-item power">
+                <div class="operation-item power" @click="() => skipToRoute('/power-management')">
                     <div class="head">
                         <span>权限设置</span>
                         <i class="el-icon-delete"></i>
@@ -87,7 +90,7 @@
             </div>
 
             <div>
-                <div class="operation-item authority">
+                <div class="operation-item authority" @click="() => skipToRoute('/filecensus')">
                     <div class="head">
                         <span>文件模板</span>
                         <i class="el-icon-delete"></i>
@@ -126,6 +129,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </template>
@@ -142,8 +146,9 @@ export default {
             echarts: {
                 dateArray:{},
                 allArray: [],
-            },    // 传入echarts的数据
-            count: 0, // 组织人数
+            },                                        // 传入echarts的数据
+            count: 0,                                // 组织人数,
+            orgId: '',                              // 组织编号
         };
     },
 
@@ -180,18 +185,21 @@ export default {
                              this.echarts[this.echarts.options[i]].all.push(item.all)
                         })
                     }
-                    console.log(this.echarts)
                 });
         },
         getEmployeeCount() {
             this.axios.get('/employee/count', {
                 params: {
-                    orgId: 2679274771077300246
+                    orgId: this.orgId
                 }
             })
             .then(res => {
                 this.count = res.data.result;
+                
             })
+        },
+        skipToRoute(route) {
+            this.$router.push(route);
         }
     },
 
@@ -199,8 +207,11 @@ export default {
         this.getEchartsData();
         this.getEmployeeCount();
         // 获取全局user数据
-        const { name, mobile } = this.$store.state.userData;
+        const { name, mobile, orgId } = this.$store.state.userData;
+        
         this.name = name;
+
+        this.orgId = orgId;
 
         // 截取中间四位
         const middleNumber = mobile.slice(3, 7);

@@ -87,8 +87,5 @@ export default {
             }
         };
     },
-    mounted() {
-        console.log(this.echarts)
-    }
 };
 </script>

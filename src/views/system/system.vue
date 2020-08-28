@@ -23,10 +23,10 @@
     </div>
 </template>
 <script lang="ts">
-import SideBarHeader from '../components/sidebar-header.vue';
-import SideBarMenu from '../components/sidebar-menu.vue';
-import HeaderMain from '../components/header-main.vue';
-import MainContainer from '../components/main-container.vue';
+import SideBarHeader from './components/sidebar-header.vue';
+import SideBarMenu from './components/sidebar-menu.vue';
+import HeaderMain from '@/components/header-main.vue';
+import MainContainer from '@/components/main-container.vue';
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({

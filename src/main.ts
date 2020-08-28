@@ -6,7 +6,7 @@ import Element from 'element-ui'
 import VueCookies from 'vue-cookies'
 import 'element-ui/lib/theme-chalk/index.css';
 import axios from '@/utils/axios'
-import '@/styles/common.css'
+import '@/styles/common.less'
 
 
 Vue.use(VueCookies);

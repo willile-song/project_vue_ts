@@ -39,7 +39,7 @@
 
         <!-- 列表 -->
         <div v-else>
-            <ul>
+            <ul v-loading="loading">
                 <li class="list-item" v-for="item in affairList" :key="item.id">
                     <div class="list-info">
                         <div class="subject">
@@ -95,7 +95,8 @@ export default {
             reqParams: new Params(), // 参数实例,
             totalPages: 10,
             currentPage: 1,
-            dropdownLabel: '全部'
+            dropdownLabel: '全部',
+            loading: true,           // 是否加载loading动画
         };
     },
     methods: {
@@ -106,7 +107,6 @@ export default {
             const status = fromMe ? 'TOTAL' : 'REQUIRED';
             this.reqParams.fromMe = fromMe;
             this.reqParams.status = status;
-            console.log(fromMe);
         },
 
         // 下拉菜单点击事件
@@ -162,11 +162,13 @@ export default {
     watch: {
         computeReqParams() {
             this.getList();
-            console.log('参数改变！！！');
         }
     },
     mounted() {
         this.getList();
+        setTimeout(() => {
+            this.loading = false;
+        }, 500);
     }
 };
 </script>

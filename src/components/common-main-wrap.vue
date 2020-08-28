@@ -2,6 +2,8 @@
     <div id="common-main-wrap">
         <div id="search-module">
             <h4>{{title}}</h4>
+            
+            <!-- 过滤模块 -->
             <div class="filter">
                 <div class="time-picker">
                     <span class="demonstration">时间：</span>
@@ -62,6 +64,7 @@
         <!-- // 表格部分 -->
         <div class="table">
             <el-table :data="tableData" style="width: 100%">
+
                 <el-table-column
                     v-for="(item, index) in tableHeader"
                     :key="index"
@@ -69,6 +72,8 @@
                     :prop="item.prop"
                     :label="item.label"
                 ></el-table-column>
+
+                <!-- 点击展开 -->
                 <el-table-column type="expand">
                     <template slot-scope="props">
                         <el-form label-position="right" inline class="demo-table-expand">
@@ -81,6 +86,7 @@
                 </el-table-column>
             </el-table>
 
+            <!-- 分页 -->
             <div class="pagination">
                 <el-pagination
                     @size-change="handleSizeChange"
@@ -249,6 +255,39 @@ export default class CommonMainWrap extends Vue {
         padding: 30px 0 30px 30px;
         border-bottom: 1px solid rgb(228, 231, 237);
 
+        //全局移回样式，针对搜索模块的尺寸 ----------------------------
+        /deep/ .match .el-input .el-input__inner {
+            width: 148px;
+            height: 38px;
+        }
+
+        /deep/ .el-select.el-select {
+            width: 130px !important;
+        }
+        /deep/ span.title {
+            margin-right: 50px;
+        }
+
+        /deep/ .custom-tree-node {
+            position: relative;
+        }
+        /deep/ .custom-tree-node > .el-icon-more {
+            margin-left: 20px;
+        }
+
+        /deep/ .el-tree-node__content:hover .el-dropdown-link {
+            display: block;
+            color: #aaa;
+        }
+        /deep/ .el-button.el-button--text.el-button--mini > span {
+            color: #aaa;
+            font-size: 14px;
+            background-color: #f7f8f8;
+        }
+        /deep/ .el-button.el-button--text.el-button--mini:hover span {
+            color: #000;
+        }
+        // ------        -------          -----
         .filter {
             display: flex;
             justify-content: start;
