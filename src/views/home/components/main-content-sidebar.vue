@@ -1,6 +1,5 @@
 <template>
     <div class="main-content-sidebar">
-
         <!-- 用户部分 -->
         <div class="user">
             <div class="portrait">
@@ -41,7 +40,11 @@
             </div>
 
             <div>
-                <div v-if="employee" class="operation-item employee" @click="() => skipToRoute('/organ-member')">
+                <div
+                    v-if="employee"
+                    class="operation-item employee"
+                    @click="() => skipToRoute('/organ-member')"
+                >
                     <div class="head">
                         <span>组织与成员</span>
                         <i @click.stop="handleDelete('employee')" class="el-icon-delete"></i>
@@ -54,10 +57,14 @@
             </div>
 
             <div>
-                <div v-if="seal" class="operation-item seal-management" @click="() => skipToRoute('/electronic-signature')">
+                <div
+                    v-if="seal"
+                    class="operation-item seal-management"
+                    @click="() => skipToRoute('/electronic-signature')"
+                >
                     <div class="head">
                         <span>印章管理</span>
-                        <i  @click.stop="handleDelete('seal')" class="el-icon-delete"></i>
+                        <i @click.stop="handleDelete('seal')" class="el-icon-delete"></i>
                     </div>
                     <div class="content">
                         <ul>
@@ -78,10 +85,14 @@
             </div>
 
             <div>
-                <div v-if="power" class="operation-item power" @click="() => skipToRoute('/power-management')">
+                <div
+                    v-if="power"
+                    class="operation-item power"
+                    @click="() => skipToRoute('/power-management')"
+                >
                     <div class="head">
                         <span>权限设置</span>
-                        <i  @click.stop="handleDelete('power')" class="el-icon-delete"></i>
+                        <i @click.stop="handleDelete('power')" class="el-icon-delete"></i>
                     </div>
                     <div class="content">
                         <div class="grey">给同事分配系统权限，可提高使用效率</div>
@@ -90,7 +101,11 @@
             </div>
 
             <div>
-                <div v-if="file" class="operation-item authority" @click="() => skipToRoute('/filecensus')">
+                <div
+                    v-if="file"
+                    class="operation-item authority"
+                    @click="() => skipToRoute('/filecensus')"
+                >
                     <div class="head">
                         <span>文件模板</span>
                         <i @click.stop="handleDelete('file')" class="el-icon-delete"></i>
@@ -129,7 +144,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </template>
@@ -137,24 +151,24 @@
 <script>
 import EchartsComponent from '@/components/echarts-component.vue';
 
-
 export default {
     data() {
         return {
             name: '',
             mobile: '',
             echarts: {
-                dateArray:{},
-                allArray: [],
-            },                                        // 传入echarts的数据
-            count: 0,                                // 组织人数,
-            orgId: '',                              // 组织编号
+                dateArray: {},
+                allArray: []
+            }, // 传入echarts的数据
+            count: 0, // 组织人数,
+            orgId: '', // 组织编号
+            
             // 删除模块
-            employee: true,                             
+            employee: true,
             seal: true,
             power: true,
-            file: true, 
-            signature: true,
+            file: true,
+            signature: true
         };
     },
 
@@ -174,35 +188,38 @@ export default {
                 })
                 .then(resp => {
                     // console.log(resp.data.result);
-                    const result = resp.data.result;             // echarts数组对象
-                    this.echarts.options = Object.keys(result);   // 获取数据项
+                    const result = resp.data.result; // echarts数组对象
+                    this.echarts.options = Object.keys(result); // 获取数据项
 
                     // 处理数据
-                    for(let i = 0; i < this.echarts.options?.length; i++) {
-
+                    for (let i = 0; i < this.echarts.options?.length; i++) {
                         this.echarts[this.echarts.options[i]] = {
                             date: [],
                             all: []
-                        }
+                        };
 
                         result[this.echarts.options[i]].map(item => {
-                            // console.log(item,this.echarts.options[i])    
-                             this.echarts[this.echarts.options[i]].date.push(item.date);
-                             this.echarts[this.echarts.options[i]].all.push(item.all)
-                        })
+                            // console.log(item,this.echarts.options[i])
+                            this.echarts[this.echarts.options[i]].date.push(
+                                item.date
+                            );
+                            this.echarts[this.echarts.options[i]].all.push(
+                                item.all
+                            );
+                        });
                     }
                 });
         },
         getEmployeeCount() {
-            this.axios.get('/employee/count', {
-                params: {
-                    orgId: this.orgId
-                }
-            })
-            .then(res => {
-                this.count = res.data.result;
-                
-            })
+            this.axios
+                .get('/employee/count', {
+                    params: {
+                        orgId: this.orgId
+                    }
+                })
+                .then(res => {
+                    this.count = res.data.result;
+                });
         },
         skipToRoute(route) {
             this.$router.push(route);
@@ -217,7 +234,7 @@ export default {
         this.getEmployeeCount();
         // 获取全局user数据
         const { name, mobile, orgId } = this.$store.state.userData;
-        
+
         this.name = name;
 
         this.orgId = orgId;
@@ -498,7 +515,7 @@ export default {
                 }
 
                 .sign-content {
-                    font-family:cursive;
+                    font-family: cursive;
                     font-size: 30px;
                 }
             }

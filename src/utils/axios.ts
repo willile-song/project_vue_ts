@@ -27,7 +27,7 @@ instance.interceptors.request.use((config: AxiosRequestConfig): any => {
 
 instance.interceptors.response.use((response: AxiosResponse): any => {
     // console.log(response.data.code)
-    if(response.data.code === 403) {            // 回话失效跳转到login
+    if(response.data.code === 403) {            // 会话失效跳转到login
         router.push('/login')
     }
     return response
@@ -36,3 +36,5 @@ instance.interceptors.response.use((response: AxiosResponse): any => {
 })
 
 export default instance                       // 导出实例
+
+
