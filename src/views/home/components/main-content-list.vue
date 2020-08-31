@@ -149,10 +149,6 @@ export default {
         handleCurrentChange() {
             this.reqParams.PageNo = this.currentPage;
         },
-
-        handleSizeChange() {
-            console.log();
-        }
     },
     computed: {
         computeReqParams() {
@@ -169,7 +165,7 @@ export default {
         setTimeout(() => {
             this.loading = false;
         }, 500);
-    }
+    },
 };
 </script>
 

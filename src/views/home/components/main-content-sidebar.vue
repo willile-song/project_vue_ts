@@ -47,6 +47,8 @@
                 >
                     <div class="head">
                         <span>组织与成员</span>
+
+                        <!-- 防止点击事件向父级元素冒泡，也可以在父级元素的点击事件上添加self修饰符 -->
                         <i @click.stop="handleDelete('employee')" class="el-icon-delete"></i>
                     </div>
                     <div class="content">
@@ -136,7 +138,7 @@
                 <div v-if="signature" class="operation-item signature">
                     <div class="head">
                         <span>个人签名</span>
-                        <i @click.stop="handleDelete('file')" class="el-icon-delete"></i>
+                        <i @click.stop="handleDelete('signature')" class="el-icon-delete"></i>
                     </div>
                     <div class="content">
                         <div class="sign-content">{{name}}</div>
@@ -248,7 +250,7 @@ export default {
 
 <style lang="less" scoped>
 .main-content-sidebar {
-    // border标记，辅助边框
+    // border标记，辅助边框, 辅助开发
     @mark: 1px solid #ccc;
 
     .user,
