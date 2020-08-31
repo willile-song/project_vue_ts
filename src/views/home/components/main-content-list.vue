@@ -96,7 +96,7 @@ export default {
             totalPages: 10,
             currentPage: 1,
             dropdownLabel: '全部',
-            loading: true,           // 是否加载loading动画
+            loading: true // 是否加载loading动画
         };
     },
     methods: {
@@ -133,6 +133,7 @@ export default {
 
         // 获取列表数据
         getList() {
+            this.loading = true;
             this.axios
                 .get('/contractsealapply/page', {
                     params: {
@@ -144,11 +145,14 @@ export default {
                     this.affairList = result;
                     this.totalPages = totalPages;
                 });
+            setTimeout(() => {
+                this.loading = false;
+            }, 500);
         },
 
         handleCurrentChange() {
             this.reqParams.PageNo = this.currentPage;
-        },
+        }
     },
     computed: {
         computeReqParams() {
@@ -162,10 +166,7 @@ export default {
     },
     mounted() {
         this.getList();
-        setTimeout(() => {
-            this.loading = false;
-        }, 500);
-    },
+    }
 };
 </script>
 

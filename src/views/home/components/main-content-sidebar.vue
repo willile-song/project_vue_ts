@@ -165,7 +165,7 @@ export default {
             count: 0, // 组织人数,
             orgId: '', // 组织编号
             
-            // 删除模块
+            // 删除模块，通过v-if实现
             employee: true,
             seal: true,
             power: true,
@@ -226,6 +226,8 @@ export default {
         skipToRoute(route) {
             this.$router.push(route);
         },
+
+        // 删除按钮点击事件
         handleDelete(name) {
             this[name] = false;
         }
