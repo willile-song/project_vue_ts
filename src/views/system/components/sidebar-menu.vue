@@ -2,6 +2,7 @@
     <!-- 渲染菜单 -->
     <div id="sidebar-menu">
         <el-menu
+            :default-openeds = openMenu
             @select="handleSelect"
             router
             :default-active="$route.path"
@@ -22,7 +23,7 @@
                     <span slot="title">{{ item.name }}</span>
                 </el-menu-item>
 
-                <el-submenu ref="menu" :index="index + ''" v-if="item.childNode" :key="index">
+                <el-submenu :index="index + ''" v-if="item.childNode" :key="index">
                     <template slot="title">
                         <i :class="item.icon"></i>
                         <span slot="title">{{ item.name }}</span>
@@ -139,22 +140,18 @@ export default {
                     url: '/audit',
                     icon: 'el-icon-document-copy'
                 }
-            ]
+            ],
+            openMenu: []
         };
     },
 
     methods: {
+        // 处理菜单有多级子菜单跳到一级item菜单，原菜单不收起=
         handleSelect(index, indexPath) {
-            const closeMenu = this.$refs?.menu;
-            // if (indexPath?.length === 1) {
-            //     closeMenu.map(item => {
-            //         item?.$el?.classList?.remove('is-opened');
-            //         item?.$el?.classList?.remove('is-active');
-            //         item?.$el?.removeAttribute('aria-expanded');
-            //         console.log(item?.$el?.getElementsByTagName('ul')[0]?.style?.display)
-            //     });
-            // }
-        }
+            if (indexPath?.length === 1) {
+                this.openMenu = [];
+            }
+        },
     }
 };
 </script>
