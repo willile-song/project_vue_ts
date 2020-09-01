@@ -146,8 +146,11 @@ export default {
     },
 
     methods: {
+
         // 处理菜单有多级子菜单跳到一级item菜单，原菜单不收起=
         handleSelect(index, indexPath) {
+
+            // 当菜单跳到无子级菜单时把 打开的菜单项数组置空
             if (indexPath?.length === 1) {
                 this.openMenu = [];
             }
