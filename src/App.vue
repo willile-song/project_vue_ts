@@ -4,15 +4,15 @@
         <router-view />
     </div>
 </template>
-<script lang="ts">
+<script>
 export default {
     computed: {
         
-        getUserData(): string {
+        getUserData() {
             return this.$store.state?.userData;
         },
         // 路由是否为login
-        isLogin(): boolean {
+        isLogin() {
             return this.$route.name === "login" ? true : false;
         }
     },

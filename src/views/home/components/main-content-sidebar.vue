@@ -164,7 +164,7 @@ export default {
             }, // 传入echarts的数据
             count: 0, // 组织人数,
             orgId: '', // 组织编号
-            
+
             // 删除模块，通过v-if实现
             employee: true,
             seal: true,
@@ -179,6 +179,7 @@ export default {
     },
 
     methods: {
+
         //  获取echarts图表数据
         getEchartsData() {
             this.axios
@@ -212,6 +213,8 @@ export default {
                     }
                 });
         },
+
+        // 获取组织与成员数量
         getEmployeeCount() {
             this.axios
                 .get('/employee/count', {
@@ -223,6 +226,8 @@ export default {
                     this.count = res.data.result;
                 });
         },
+
+        // 跳转路由
         skipToRoute(route) {
             this.$router.push(route);
         },
@@ -261,10 +266,12 @@ export default {
         background-color: #fff;
         box-sizing: border-box;
     }
+
     ul {
         padding: 0;
     }
     // user信息模块
+
     .user {
         width: 300px;
         height: 88px;
@@ -279,7 +286,6 @@ export default {
             border-radius: 50%;
             overflow: hidden;
             margin-right: 10px;
-            border: @mark;
 
             img {
                 width: 40px;
@@ -301,10 +307,12 @@ export default {
             .account {
                 font-size: 12px;
             }
+
             .account-label {
                 margin-right: 4px;
                 color: #7f8997;
             }
+            
         }
     }
     // 统计echarts

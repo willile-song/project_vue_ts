@@ -201,11 +201,11 @@ export default class CommonMainWrap extends Vue {
                     ...this.comptuedParams,
                     ...this.pageParams,
                     companyId: '2703493711465512985',
-                    createTimeFrom: this.searchParams.picker[0],
-                    createTimeTo: this.searchParams.picker[1],
-                    operation: this.searchParams.operation,
-                    operator: this.searchParams.operator,
-                    keyword: this.searchParams.keyword
+                    createTimeFrom: this.searchParams?.picker[0],
+                    createTimeTo: this.searchParams?.picker[1],
+                    operation: this.searchParams?.operation,
+                    operator: this.searchParams?.operator,
+                    keyword: this.searchParams?.keyword
                 }
             })
             .then((res: any) => {
@@ -255,7 +255,7 @@ export default class CommonMainWrap extends Vue {
         padding: 30px 0 30px 30px;
         border-bottom: 1px solid rgb(228, 231, 237);
 
-        //全局移回样式，针对搜索模块的尺寸 ----------------------------
+        //全局移回的样式，针对搜索模块的尺寸 ----------------------------
         /deep/ .match .el-input .el-input__inner {
             width: 148px;
             height: 38px;
@@ -302,6 +302,7 @@ export default class CommonMainWrap extends Vue {
             .btn {
                 margin: 5px;
             }
+            
             .match {
                 .inline-input {
                     display: inline;
@@ -311,11 +312,13 @@ export default class CommonMainWrap extends Vue {
     }
 
     .table {
+
         .pagination {
             padding: 20px 24px;
             display: flex;
             justify-content: flex-end;
         }
+
         .demo-table-expand {
             font-size: 0;
 

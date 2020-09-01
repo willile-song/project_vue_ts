@@ -11,6 +11,7 @@
             :unique-opened="true"
         >
             <template v-for="(item, index) in menuList">
+
                 <el-menu-item
                     v-if="!item.childNode"
                     :index="item.url"
@@ -33,124 +34,133 @@
                         </el-menu-item>
                     </template>
                 </el-submenu>
+                
             </template>
         </el-menu>
     </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-
-interface ListItem {
-    name: string;
-    id: number;
-    url: string;
-    icon?: string;
-    childNode?: ListItem[];
-}
-
-@Component
-export default class SidebarMenu extends Vue {
-    menuList: Array<ListItem> = [
-        {
-            name: '首页',
-            id: 1,
-            url: '/home',
-            icon: 'el-icon-s-home'
-        },
-        {
-            name: '文件',
-            id: 2,
-            url: '/file',
-            icon: 'el-icon-document',
-            childNode: [
+<script>
+export default {
+    data() {
+        return {
+            menuList: [
                 {
-                    name: '电子签约',
+                    name: '首页',
+                    id: 1,
+                    url: '/home',
+                    icon: 'el-icon-s-home'
+                },
+
+                {
+                    name: '文件',
+                    id: 2,
+                    url: '/file',
+                    icon: 'el-icon-document',
+                    childNode: [
+                        {
+                            name: '电子签约',
+                            id: 3,
+                            url: '/sign'
+                        },
+                        {
+                            name: '文件统计',
+                            id: 4,
+                            url: '/filecensus'
+                        }
+                    ]
+                },
+
+                {
+                    name: '印控',
                     id: 3,
-                    url: '/sign'
+                    url: '/sealcontrol',
+                    icon: 'el-icon-s-check',
+                    childNode: [
+                        {
+                            name: '电子签章',
+                            id: 5,
+                            url: '/electronic-signature'
+                        }
+                    ]
                 },
+
                 {
-                    name: '文件统计',
+                    name: '组织',
                     id: 4,
-                    url: '/filecensus'
-                }
-            ]
-        },
-        {
-            name: '印控',
-            id: 3,
-            url: '/sealcontrol',
-            icon: 'el-icon-s-check',
-            childNode: [
+                    url: '/organization',
+                    icon: 'el-icon-s-custom',
+                    childNode: [
+                        {
+                            name: '基本信息',
+                            id: 6,
+                            url: '/info'
+                        },
+                        {
+                            name: '组织和成员',
+                            id: 7,
+                            url: '/organ-member'
+                        },
+                        {
+                            name: '权限管理',
+                            id: 8,
+                            url: '/power-management'
+                        },
+                        {
+                            name: '费用中心',
+                            id: 9,
+                            url: '/cost-center'
+                        }
+                    ]
+                },
+
                 {
-                    name: '电子签章',
+                    name: '配置',
                     id: 5,
-                    url: '/electronic-signature'
-                }
-            ]
-        },
-        {
-            name: '组织',
-            id: 4,
-            url: '/organization',
-            icon: 'el-icon-s-custom',
-            childNode: [
+                    url: '/config',
+                    icon: 'el-icon-s-tools',
+                    childNode: [
+                        {
+                            name: '模板库管理',
+                            id: 10,
+                            url: '/template-library-management'
+                        },
+                        {
+                            name: '业务流配置',
+                            id: 11,
+                            url: '/business-flow-config'
+                        }
+                    ]
+                },
+
                 {
-                    name: '基本信息',
+                    name: '审计',
                     id: 6,
-                    url: '/info'
-                },
-                {
-                    name: '组织和成员',
-                    id: 7,
-                    url: '/organ-member'
-                },
-                {
-                    name: '权限管理',
-                    id: 8,
-                    url: '/power-management'
-                },
-                {
-                    name: '费用中心',
-                    id: 9,
-                    url: '/cost-center'
+                    url: '/audit',
+                    icon: 'el-icon-document-copy'
                 }
             ]
-        },
-        {
-            name: '配置',
-            id: 5,
-            url: '/config',
-            icon: 'el-icon-s-tools',
-            childNode: [
-                {
-                    name: '模板库管理',
-                    id: 10,
-                    url: '/template-library-management'
-                },
-                {
-                    name: '业务流配置',
-                    id: 11,
-                    url: '/business-flow-config'
-                }
-            ]
-        },
-        {
-            name: '审计',
-            id: 6,
-            url: '/audit',
-            icon: 'el-icon-document-copy'
+        };
+    },
+
+    methods: {
+        handleSelect(index, indexPath) {
+            const closeMenu = this.$refs?.menu;
+            // if (indexPath?.length === 1) {
+            //     closeMenu.map(item => {
+            //         item?.$el?.classList?.remove('is-opened');
+            //         item?.$el?.classList?.remove('is-active');
+            //         item?.$el?.removeAttribute('aria-expanded');
+            //         console.log(item?.$el?.getElementsByTagName('ul')[0]?.style?.display)
+            //     });
+            // }
         }
-    ];
-    handleSelect(index: string, indexPath: string) {
-        console.log(index, indexPath);
-        const arr = [].slice.call(this.$refs.menu);
-        console.log(typeof arr);
     }
-}
+};
 </script>
 
 <style lang="less" scoped>
+
 #sidebar-menu {
     background-color: #001330;
     height: calc(100% - 80px);
@@ -158,6 +168,11 @@ export default class SidebarMenu extends Vue {
     /deep/ ul[role='menubar'] {
         border: none;
         height: 100%;
+
+        li[role="menuitem"]:hover span {
+            color: #fff;
+        }
     }
+    
 }
 </style>

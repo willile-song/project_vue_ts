@@ -4,7 +4,7 @@
         <div class="list-header">
             <el-tabs v-model="activeName" @tab-click="handleClickLabel">
                 <el-tab-pane label="待办事务" name="affairList"></el-tab-pane>
-                <el-tab-pane label="我发起的" name="launchByMe"></el-tab-pane>
+                <el-tab-pane label="我发起的" name="launchedByMe"></el-tab-pane>
             </el-tabs>
             <div class="filters">
                 <div class="filter-dropdown">
@@ -63,7 +63,6 @@
 
             <!-- 分页 -->
             <el-pagination
-                @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page.sync="currentPage"
                 :page-size="1"
@@ -89,7 +88,7 @@ class Params {
 export default {
     data() {
         return {
-            affairList: null, // 列表数据，此处为mock
+            affairList: null, // 列表数据,
             activeName: 'affairList',
             isAscending: true,
             reqParams: new Params(), // 参数实例,
@@ -99,17 +98,18 @@ export default {
             loading: true // 是否加载loading动画
         };
     },
+
     methods: {
+        // 切换事务
+        // console.log(tab, event)
         handleClickLabel(tab, event) {
-            // 切换事务
-            // console.log(tab, event)
-            const fromMe = this.activeName === 'launchByMe';
+            const fromMe = this.activeName === 'launchedByMe';
             const status = fromMe ? 'TOTAL' : 'REQUIRED';
             this.reqParams.fromMe = fromMe;
             this.reqParams.status = status;
         },
 
-        // 下拉菜单点击事件
+        // 用印类型 下拉菜单点击事件
         handleCommand(command) {
             let businessType;
             if (command === 'total') {
@@ -125,8 +125,8 @@ export default {
             this.reqParams.businessType = businessType;
         },
 
+        // 排序切换事件
         handleClickSortIcon() {
-            // 排序切换事件
             this.isAscending = !this.isAscending;
             this.reqParams.asc = this.isAscending;
         },
@@ -159,6 +159,7 @@ export default {
             return JSON.parse(JSON.stringify(this.reqParams)); // 冻结对象；
         }
     },
+    // 监听计算属性的变化
     watch: {
         computeReqParams() {
             this.getList();

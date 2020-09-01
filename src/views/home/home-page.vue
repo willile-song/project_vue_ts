@@ -17,24 +17,26 @@
 </template>
 
 <script>
-import MainContentList from '../home/components/main-content-list.vue'
-import MainContentSidebar from '../home/components/main-content-sidebar.vue'
+import MainContentList from '../home/components/main-content-list.vue';
+import MainContentSidebar from '../home/components/main-content-sidebar.vue';
 
 export default {
     data() {
         return {
-            isFold: false,   // 控制右侧菜单是否折叠，默认展开
+            isFold: false // 控制右侧菜单是否折叠，默认展开
         };
     },
+
     components: {
         MainContentList,
-        MainContentSidebar,
+        MainContentSidebar
     },
+
     methods: {
         handleClickIcon() {
             this.isFold = !this.isFold;
-        },
-    },
+        }
+    }
 };
 </script>
 
@@ -44,7 +46,7 @@ export default {
     display: flex;
     scroll-behavior: auto;
     padding: 25px 0;
-    background-color: rgba(221, 214, 214, 0.2);;
+    background-color: rgba(221, 214, 214, 0.2);
     @mainWidth: 300px;
 
     .main-content {
@@ -56,7 +58,7 @@ export default {
         display: flex;
         padding-right: 25px;
         overflow: hidden;
-        
+
         &.fold {
             width: 100%;
         }
@@ -120,7 +122,7 @@ export default {
     .right-content {
         width: 300px;
         height: 100%;
-        padding:0 16px;
+        padding: 0 16px;
         transition: 0.3s;
 
         &.fold {
