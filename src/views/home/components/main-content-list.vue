@@ -23,7 +23,7 @@
                 </div>
                 <el-divider direction="vertical"></el-divider>
                 <span
-                    :class="isAscending ? 'el-icon-sort-up' : 'el-icon-sort-down'"
+                    :class="isAscending ? 'el-icon-sort-down' : 'el-icon-sort-up'"
                     @click="handleClickSortIcon"
                 ></span>
             </div>
